@@ -1,34 +1,27 @@
 import React from 'react';
 import axios from 'axios';
-import M from 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import PropTypes from 'prop-types';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
 import TransactionError from '../Components/TransactionError';
-import LastTransaction from '../Components/LastTransaction';
+import TransactionList from '../Components/TransactionList';
 
 class DashboardContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      walletId: 1,
-      wallet: {},
-      errorWallet: '',
+      transactions: [],
       errorTransaction: '',
-      lastTransaction: []
+      errorWallet: '',
+      walletId: 1,
+      wallet: {}
     };
   }
 
   async componentDidMount() {
     await this._fetchWallet();
     await this._fetchLastTransaction();
-    const elements = document.querySelectorAll('.carousel');
-    const options = {
-      duration: 1
-    };
-    M.Carousel.init(elements, options);
-    M.AutoInit();
   }
 
   _fetchWallet = async () => {
@@ -45,10 +38,8 @@ class DashboardContainer extends React.PureComponent {
   _fetchLastTransaction = async () => {
     const { API_URL } = this.props;
     try {
-      const { data: lastTransaction } = await axios.get(`${API_URL}/transactions?_sort=createdAt&_order=desc&_limit=5`);
-      this.setState({
-        lastTransaction, errorTransaction: ''
-      });
+      const response = await axios.get(`${API_URL}/transactions`);
+      this.setState({ transactions: response.data, errorTransaction: '' });
     } catch (e) {
       this.setState({ errorTransaction: e.message });
     }
@@ -56,7 +47,7 @@ class DashboardContainer extends React.PureComponent {
 
   render() {
     const {
-      wallet, errorWallet, lastTransaction, errorTransaction
+      wallet, errorWallet, transactions, errorTransaction
     } = this.state;
     return (
       <div className="row">
@@ -64,7 +55,7 @@ class DashboardContainer extends React.PureComponent {
         {!errorWallet ? <Wallet wallet={wallet} /> : <WalletError message={errorWallet} />}
         <br />
         {!errorTransaction
-          ? <LastTransaction transactions={lastTransaction} />
+          ? <TransactionList transactions={transactions} />
           : <TransactionError message={errorTransaction} />}
       </div>
     );

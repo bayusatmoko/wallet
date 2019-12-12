@@ -5,6 +5,7 @@ import DashboardContainer from './DashboardContainer';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
 import LastTransaction from '../Components/LastTransaction';
+import TransactionList from "../Components/TransactionList";
 
 jest.mock('axios');
 
@@ -58,6 +59,10 @@ describe('DashboardContainer', () => {
     axios.get.mockResolvedValueOnce(transactionResponse);
     wrapper = shallow(<DashboardContainer API_URL={url} />);
   });
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+  });
   describe('#render', () => {
     it('should render dashboard with BalanceComponent with balance 110000000000', () => {
       expect(wrapper.find(Wallet).length).toBe(1);
@@ -83,7 +88,7 @@ describe('DashboardContainer', () => {
     it('should return three last transaction list from json-server', async () => {
       await flushPromises();
 
-      expect(wrapper.find(LastTransaction).props().transactions).toEqual(
+      expect(wrapper.find(TransactionList).props().transactions).toEqual(
         [firstTransaction, secondTransaction, thirdTransaction]
       );
     });
