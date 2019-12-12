@@ -1,0 +1,153 @@
+li a.active{
+  background-color: #b3e5fc;
+}
+
+li a:hover{
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.dashboard__wallet, .transaction__form{
+  animation: animate-right 2s;
+  position:relative;
+}
+
+.dashboard__wallet--card{
+  background-color: #40c4ff;
+  padding: 10%;
+  border-radius: 10px;
+}
+.dashboard__wallet--title{
+  font-weight: bolder;
+  font-size: 15px;
+}
+.dashboard__wallet--id{
+  font-weight: bolder;
+  font-family: OCR;
+  font-size: 20px;
+}
+.dashboard__wallet--balance{
+  font-weight: bolder;
+  font-size: 30px;
+}
+tr{
+  position: relative;
+}
+
+.last-transaction__card{
+  background-color: #40c4ff;
+  color: white;
+  padding: 5%;
+  border-radius: 10px;
+}
+.transaction .transaction__item:nth-child(1n) {
+  position: relative;
+  animation: animate-right 1s;
+}
+
+.transaction .transaction__item:nth-child(2n) {
+  position: relative;
+  animation: animate-right 2s;
+}
+
+.transaction .transaction__item:nth-child(3n) {
+  position: relative;
+  animation: animate-right 3s;
+}
+
+.transaction .transaction__item:nth-child(4n) {
+  position: relative;
+  animation: animate-right 4s;
+}
+
+.transaction .transaction__item:nth-child(5n) {
+  position: relative;
+  animation: animate-right 5s;
+}
+
+.transaction .transaction__item:nth-child(6n) {
+  position: relative;
+  animation: animate-right 6s;
+}
+
+.transaction .transaction__item:nth-child(7n) {
+  position: relative;
+  animation: animate-right 7s;
+}
+
+.transaction .transaction__item:nth-child(8n) {
+  position: relative;
+  animation: animate-right 8s;
+}
+
+.transaction .transaction__item:nth-child(9n) {
+  position: relative;
+  animation: animate-right 9s;
+}
+
+.transaction .transaction__item:nth-child(10n) {
+  position: relative;
+  animation: animate-right 10s;
+}
+
+.transaction .transaction__item:nth-child(11n) {
+  position: relative;
+  animation: animate-right 11s;
+}
+
+.transaction .transaction__item:nth-child(12n) {
+  position: relative;
+  animation: animate-right 12s;
+}
+
+.transaction .transaction__item:nth-child(13n) {
+  position: relative;
+  animation: animate-right 13s;
+}
+
+.transaction .transaction__item:nth-child(14n) {
+  position: relative;
+  animation: animate-right 14s;
+}
+
+.transaction .transaction__item:nth-child(15n) {
+  position: relative;
+  animation: animate-right 15s;
+}
+
+.transaction .transaction__item:nth-child(16n) {
+  position: relative;
+  animation: animate-right 16s;
+}
+
+.transaction .transaction__item:nth-child(17n) {
+  position: relative;
+  animation: animate-right 17s;
+}
+
+.transaction .transaction__item:nth-child(18n) {
+  position: relative;
+  animation: animate-right 18s;
+}
+
+.transaction .transaction__item:nth-child(19n) {
+  position: relative;
+  animation: animate-right 19s;
+}
+
+.transaction .transaction__item:nth-child(20n) {
+  position: relative;
+  animation: animate-right 20s;
+}
+.divider{
+  margin-bottom: 10px;
+}
+@keyframes animate-right {
+  from {
+    right: -300px;
+    opacity: 0;
+  }
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
