@@ -22,7 +22,7 @@ class UserInfoContainer extends React.PureComponent {
 
     _fetchUser = async () => {
       const userId = 1;
-      const fetchUserUrl = `http://localhost:3333/users/${userId}`;
+      const fetchUserUrl = `http://localhost:3000/users/${userId}`;
       try {
         const { data: user } = await axios.get(fetchUserUrl);
         this.setState({ user });
