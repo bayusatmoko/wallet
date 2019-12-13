@@ -6,10 +6,8 @@ class TransactionForm extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'deposit',
-      amount: '',
-      description: '',
-      walletId: 1
+      nominal: '',
+      description: ''
     };
   }
 
@@ -24,46 +22,30 @@ class TransactionForm extends React.PureComponent {
     this.setState({ [name]: value });
   };
 
-  _handleSubmit = () => {
-    const { onSubmit } = this.props;
-    const {
-      walletId, type, amount, description
-    } = this.state;
-    if (amount < 0) {
+  _checkAmountInput = (nominal) => {
+    if (nominal < 0) {
       alert('Amount cannot be negative');
-      return true;
+      return false;
     }
-    const createdAt = new Date();
-    onSubmit({
-      walletId, type, amount, description, createdAt
-    });
+    return true;
   };
 
-  _renderTypeSelect = () => {
-    const { type } = this.state;
-    return (
-      <div className="row">
-        <br />
-        <div className="input-field">
-          <i className="material-icons prefix">account_balance_wallet</i>
-          <select name="type" id="type-select" onChange={this._handleChange} value={type}>
-            <option value="deposit">Deposit</option>
-            <option value="withdraw">Withdraw</option>
-          </select>
-          <label>Type of Transaction</label>
-        </div>
-      </div>
-    );
+  _handleSubmit = () => {
+    const { onSubmit } = this.props;
+    const { nominal, description } = this.state;
+    if (this._checkAmountInput(nominal)) {
+      onSubmit({ nominal, description });
+    }
   };
 
   _renderAmountInput = () => {
-    const { amount } = this.state;
+    const { nominal } = this.state;
     return (
       <div className="row">
         <div className="input-field">
           <i className="material-icons prefix">attach_money</i>
-          <input className="input-field" type="number" id="amount-input" name="amount" onChange={this._handleChange} value={amount} min="0" />
-          <label htmlFor="amount-input">Amount</label>
+          <input className="input-field" type="number" id="nominal-input" name="nominal" onChange={this._handleChange} value={nominal} min="0" />
+          <label htmlFor="nominal-input">Amount</label>
         </div>
       </div>
     );
@@ -86,7 +68,7 @@ class TransactionForm extends React.PureComponent {
     <div className="row">
       <div className="input-field">
         <button className="btn waves-effect waves-light col l12 s12 m8 offset-m2" type="submit" id="submit-button" onClick={this._handleSubmit}>
-          Add
+          OK
         </button>
       </div>
     </div>
@@ -97,8 +79,6 @@ class TransactionForm extends React.PureComponent {
       <div className="row transaction__form">
         <div className="col card l6 offset-l3 s12">
           <div className="card-content">
-            <span className="card-title">Add Transaction</span>
-            {this._renderTypeSelect()}
             {this._renderAmountInput()}
             {this._renderDescriptionInput()}
             {this._renderSubmitButton()}
