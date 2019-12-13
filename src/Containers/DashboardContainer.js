@@ -50,9 +50,10 @@ class DashboardContainer extends React.PureComponent {
   };
 
   _fetchLastTransaction = async () => {
+    const { walletId } = this.state;
     const { API_URL } = this.props;
     try {
-      const response = await axios.get(`${API_URL}/transactions`);
+      const response = await axios.get(`${API_URL}/wallets/${walletId}/transactions?limit=5`);
       this.setState({ transactions: response.data, errorTransaction: '' });
     } catch (e) {
       this.setState({ errorTransaction: e.message });
