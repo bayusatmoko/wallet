@@ -1,70 +1,75 @@
 import React from 'react';
 import axios from 'axios';
-import M from 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import PropTypes from 'prop-types';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
 import TransactionError from '../Components/TransactionError';
-import LastTransaction from '../Components/LastTransaction';
+import TransactionList from '../Components/TransactionList';
 
 class DashboardContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      walletId: 1,
-      wallet: {},
-      errorWallet: '',
+      transactions: [],
       errorTransaction: '',
-      lastTransaction: []
+      errorWallet: '',
+      userId: 1,
+      user: {},
+      wallet: {}
     };
   }
 
   async componentDidMount() {
+    await this._fetchUser();
     await this._fetchWallet();
-    await this._fetchLastTransaction();
-    const elements = document.querySelectorAll('.carousel');
-    const options = {
-      duration: 1
-    };
-    M.Carousel.init(elements, options);
-    M.AutoInit();
   }
 
   _fetchWallet = async () => {
-    const { walletId } = this.state;
+    const { userId } = this.state;
     const { API_URL } = this.props;
     try {
-      const { data: wallet } = await axios.get(`${API_URL}/wallets/${walletId}`);
+      const { data: wallet } = await axios.get(`${API_URL}/users/${userId}/wallets`);
+      await this._fetchLastTransaction(wallet.id);
       this.setState({ wallet, errorWallet: '' });
     } catch (e) {
       this.setState({ errorWallet: e.message });
     }
-  }
+  };
 
-  _fetchLastTransaction = async () => {
+  _fetchUser = async () => {
+    const { userId } = this.state;
     const { API_URL } = this.props;
     try {
-      const { data: lastTransaction } = await axios.get(`${API_URL}/transactions?_sort=createdAt&_order=desc&_limit=5`);
-      this.setState({
-        lastTransaction, errorTransaction: ''
-      });
+      const { data: user } = await axios.get(`${API_URL}/users/${userId}`);
+      this.setState({ user, errorWallet: '' });
+    } catch (e) {
+      this.setState({ errorWallet: e.message });
+    }
+  };
+
+  _fetchLastTransaction = async (walletId) => {
+    const { API_URL } = this.props;
+    try {
+      const response = await axios.get(`${API_URL}/wallets/${walletId}/transactions?limit=5`);
+      this.setState({ transactions: response.data, errorTransaction: '' });
     } catch (e) {
       this.setState({ errorTransaction: e.message });
     }
-  }
+  };
 
   render() {
     const {
-      wallet, errorWallet, lastTransaction, errorTransaction
+      wallet, errorWallet, transactions, errorTransaction, user
     } = this.state;
     return (
       <div className="row">
         <div className="row" />
-        {!errorWallet ? <Wallet wallet={wallet} /> : <WalletError message={errorWallet} />}
+        {!errorWallet ? <Wallet wallet={wallet} user={user} />
+          : <WalletError message={errorWallet} />}
         <br />
         {!errorTransaction
-          ? <LastTransaction transactions={lastTransaction} />
+          ? <TransactionList transactions={transactions} walletId={wallet.id} />
           : <TransactionError message={errorTransaction} />}
       </div>
     );

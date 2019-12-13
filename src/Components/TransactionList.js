@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TransactionItem from './TransactionItem';
-import LastTransaction from './LastTransaction';
 
 class TransactionList extends React.PureComponent {
   _renderTableHeader = () => (
@@ -11,18 +10,24 @@ class TransactionList extends React.PureComponent {
         <th>Description</th>
         <th>Amount</th>
         <th>Date</th>
+        <th>Receiver/Sender</th>
       </tr>
     </thead>
   );
 
   render() {
-    const { transactions } = this.props;
+    const { transactions, walletId } = this.props;
     return (
       <table>
         {this._renderTableHeader()}
         <tbody className="transaction">
           {transactions.map((transaction, index) => (
-            <TransactionItem transaction={transaction} key={transaction.id} index={index} />
+            <TransactionItem
+              transaction={transaction}
+              key={transaction.id}
+              index={index}
+              walletId={walletId}
+            />
           ))}
         </tbody>
       </table>

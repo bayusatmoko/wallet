@@ -1,44 +1,38 @@
 import React from 'react';
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
-import {
-  Switch,
-  Route,
-  NavLink
-} from 'react-router-dom';
+import { NavLink, Route, Switch } from 'react-router-dom';
+import phoenix from './phoenix.png';
 import TransactionContainer from './Containers/TransactionContainer';
 import DashboardContainer from './Containers/DashboardContainer';
 import NoMatch from './Components/NoMatch';
+import UserInfoContainer from './Containers/UserInfoContainer';
 
 class App extends React.PureComponent {
   render() {
-    const API_URL = 'http://localhost:3333';
+    const API_URL = 'http://localhost:3000';
     return (
       <div className="App">
         <header>
-          <nav className="blue">
+          <nav className="background-header">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a href="#" data-target="nav-mobile" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
-            <NavLink to="/" className="brand-logo right">E-Banking</NavLink>
+            <NavLink to="/" className="brand-logo right">
+              <div className="logo-header">
+                <h5 className="logo-name">PHOENIX WALLET</h5>
+                <img className="image-phoenix" src={phoenix} alt="" />
+              </div>
+            </NavLink>
           </nav>
           <ul id="nav-mobile" className="sidenav sidenav-fixed">
+            <UserInfoContainer />
             <li>
-              <div className="user-view">
-                <div className="background">
-                  <img src="assets/images/background-user.jpg" alt="user background" />
-                </div>
-                <img className="circle" src="assets/images/user-icon.png" alt="user icon" />
-                <span className="name">Bill Gates</span>
-                <span className="email">bill-gates@microsoft.com</span>
-              </div>
+              <NavLink exact to="/" activeClassName="active">Dashboard</NavLink>
             </li>
             <li>
-              <NavLink exact to="/" activeClassName="active pulse">Dashboard</NavLink>
-            </li>
-            <li>
-              <NavLink exact to="/transaction" activeClassName="active pulse">Transaction</NavLink>
+              <NavLink exact to="/transaction" activeClassName="active">Transaction</NavLink>
             </li>
           </ul>
         </header>

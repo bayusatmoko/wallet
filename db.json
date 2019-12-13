@@ -4,8 +4,8 @@
       "id": 1,
       "name": "Bill Gates",
       "email": "bill-gates@microsoft.com",
+      "password": "123123123123",
       "phoneNumber": "251 11 617 2750",
-      "address": "1835 73rd Ave NE (service entrance) and 7400 Northeast 18th Street (main entrance), Medina, Washington, United States",
       "createdAt": "2019-11-28T13:26:15.063Z",
       "updatedAt": "2019-11-28T13:26:15.063Z"
     }
@@ -26,6 +26,7 @@
       "type": "deposit",
       "amount": 7700000,
       "description": "Payslip 2019-11-28",
+      "receiverWalletId": null,
       "createdAt": "2019-11-28T13:26:15.063Z",
       "updatedAt": "2019-11-28T13:26:15.063Z"
     },
@@ -35,6 +36,7 @@
       "type": "withdraw",
       "amount": 30,
       "description": "Buy Cheeseburger for lunch",
+      "receiverWalletId": null,
       "createdAt": "2019-11-28T13:26:15.063Z",
       "updatedAt": "2019-11-28T13:26:15.063Z"
     },
@@ -44,6 +46,7 @@
       "type": "withdraw",
       "amount": 100,
       "description": "Dinner at Italian Steak House",
+      "receiverWalletId": null,
       "createdAt": "2019-11-28T13:26:15.063Z",
       "updatedAt": "2019-11-28T13:26:15.063Z"
     },
@@ -53,6 +56,7 @@
       "type": "deposit",
       "amount": 8800000,
       "description": "Payslip 2019-11-29",
+      "receiverWalletId": null,
       "createdAt": "2019-11-29T13:26:15.063Z",
       "updatedAt": "2019-11-29T13:26:15.063Z"
     },
@@ -62,6 +66,7 @@
       "type": "withdraw",
       "amount": 40,
       "description": "Buy Big Macs for lunch",
+      "receiverWalletId": null,
       "createdAt": "2019-11-29T13:26:15.063Z",
       "updatedAt": "2019-11-29T13:26:15.063Z"
     },
@@ -71,6 +76,7 @@
       "type": "withdraw",
       "amount": 100,
       "description": "Dinner at Italian Steak House",
+      "receiverWalletId": null,
       "createdAt": "2019-11-29T13:26:15.063Z",
       "updatedAt": "2019-11-29T13:26:15.063Z"
     },
@@ -80,6 +86,7 @@
       "type": "deposit",
       "amount": 6600000,
       "description": "Payslip 2019-11-30",
+      "receiverWalletId": null,
       "createdAt": "2019-11-30T13:26:15.063Z",
       "updatedAt": "2019-11-30T13:26:15.063Z"
     },
@@ -89,6 +96,7 @@
       "type": "withdraw",
       "amount": 4000,
       "description": "Flight to Europa",
+      "receiverWalletId": null,
       "createdAt": "2019-11-30T13:26:15.063Z",
       "updatedAt": "2019-11-30T13:26:15.063Z"
     },
@@ -98,6 +106,7 @@
       "type": "deposit",
       "amount": 9900000,
       "description": "Payslip 2019-12-01",
+      "receiverWalletId": null,
       "createdAt": "2019-12-01T13:26:15.063Z",
       "updatedAt": "2019-12-01T13:26:15.063Z"
     },
@@ -107,6 +116,7 @@
       "type": "deposit",
       "amount": 999999,
       "description": "Stock interest",
+      "receiverWalletId": null,
       "createdAt": "2019-12-01T13:26:15.063Z",
       "updatedAt": "2019-12-01T13:26:15.063Z"
     }

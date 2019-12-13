@@ -4,7 +4,7 @@ import axios from 'axios';
 import DashboardContainer from './DashboardContainer';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
-import LastTransaction from '../Components/LastTransaction';
+import TransactionList from '../Components/TransactionList';
 
 jest.mock('axios');
 
@@ -12,11 +12,13 @@ describe('DashboardContainer', () => {
   let wrapper;
   let wallet;
   let walletResponse;
+  let user;
+  let userResponse;
   let transactionResponse;
   let firstTransaction;
   let secondTransaction;
   let thirdTransaction;
-  const url = 'http://localhost:4000';
+  const url = 'http://localhost:3000';
   beforeEach(() => {
     wallet = {
       id: 1,
@@ -25,6 +27,16 @@ describe('DashboardContainer', () => {
       createdAt: '2019-11-28T13:26:15.+07:00',
       updatedAt: '2019-11-28T13:26:15.+07:00'
     };
+    user = {
+      id: 1,
+      name: 'Fadel',
+      password: 'Bankbtpn99',
+      email: 'fadelay@gmail.com',
+      phoneNumber: '083812345678',
+      createdAt: '2019-12-13T03:51:27.042Z',
+      updatedAt: '2019-12-13T03:51:27.042Z'
+    };
+    userResponse = { data: user };
     firstTransaction = {
       id: 1,
       walletId: 1,
@@ -53,10 +65,15 @@ describe('DashboardContainer', () => {
       updatedAt: '2019-11-28T13:26:15.063Z'
     };
     walletResponse = { data: wallet };
+    axios.get.mockResolvedValueOnce(userResponse);
     axios.get.mockResolvedValueOnce(walletResponse);
     transactionResponse = { data: [firstTransaction, secondTransaction, thirdTransaction] };
     axios.get.mockResolvedValueOnce(transactionResponse);
     wrapper = shallow(<DashboardContainer API_URL={url} />);
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
   describe('#render', () => {
     it('should render dashboard with BalanceComponent with balance 110000000000', () => {
@@ -66,7 +83,7 @@ describe('DashboardContainer', () => {
     it('should return data wallet from server', async () => {
       await flushPromises();
 
-      expect(axios.get).toHaveBeenCalledWith(`${url}/wallets/${wallet.id}`);
+      expect(axios.get).toHaveBeenCalledWith(`${url}/users/${wallet.id}/wallets`);
       expect(wrapper.find(Wallet).props().wallet).toEqual(wallet);
     });
 
@@ -83,7 +100,7 @@ describe('DashboardContainer', () => {
     it('should return three last transaction list from json-server', async () => {
       await flushPromises();
 
-      expect(wrapper.find(LastTransaction).props().transactions).toEqual(
+      expect(wrapper.find(TransactionList).props().transactions).toEqual(
         [firstTransaction, secondTransaction, thirdTransaction]
       );
     });
