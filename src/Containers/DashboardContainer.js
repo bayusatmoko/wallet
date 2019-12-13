@@ -21,9 +21,8 @@ class DashboardContainer extends React.PureComponent {
   }
 
   async componentDidMount() {
-    await this._fetchWallet();
     await this._fetchUser();
-    await this._fetchLastTransaction();
+    await this._fetchWallet();
   }
 
   _fetchWallet = async () => {
@@ -31,6 +30,7 @@ class DashboardContainer extends React.PureComponent {
     const { API_URL } = this.props;
     try {
       const { data: wallet } = await axios.get(`${API_URL}/users/${userId}/wallets`);
+      await this._fetchLastTransaction(wallet.id);
       this.setState({ wallet, errorWallet: '' });
     } catch (e) {
       this.setState({ errorWallet: e.message });
@@ -42,15 +42,13 @@ class DashboardContainer extends React.PureComponent {
     const { API_URL } = this.props;
     try {
       const { data: user } = await axios.get(`${API_URL}/users/${userId}`);
-      console.log(user);
       this.setState({ user, errorWallet: '' });
     } catch (e) {
       this.setState({ errorWallet: e.message });
     }
   };
 
-  _fetchLastTransaction = async () => {
-    const { walletId } = this.state;
+  _fetchLastTransaction = async (walletId) => {
     const { API_URL } = this.props;
     try {
       const response = await axios.get(`${API_URL}/wallets/${walletId}/transactions?limit=5`);
