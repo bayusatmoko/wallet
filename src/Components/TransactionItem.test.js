@@ -7,28 +7,38 @@ describe('TransactionItem', () => {
   let transaction;
   beforeEach(() => {
     transaction = {
-      id: 1,
-      type: 'deposit',
-      amount: 7700000,
-      description: 'Payslip 2019-11-28',
-      createdAt: '2019-11-28T13:26:15.063Z'
+      id: 13,
+      walletId: 1,
+      receiverWalletId: 1,
+      type: 'DEPOSIT',
+      nominal: 1000,
+      description: 'Uang suap',
+      createdAt: '2019-12-13T03:53:50.514Z',
+      updatedAt: '2019-12-13T03:53:50.514Z',
+      receiver: {
+        id: 1,
+        user: {
+          name: 'Fadel'
+        }
+      }
     };
     wrapper = shallow(<TransactionItem transaction={transaction} />);
   });
   describe('#render', () => {
     it('should render tr and with four td', () => {
       expect(wrapper.find('tr').length).toBe(1);
-      expect(wrapper.find('td').length).toBe(4);
+      expect(wrapper.find('td').length).toBe(5);
     });
 
     it('should every td contain value in transaction data', () => {
-      const expectedAmount = '$ 7,700,000.00';
-      const expectedDate = '28 November 2019';
+      const expectedAmount = 'IDR1,000';
+      const expectedDate = '13 December 2019';
 
       expect(wrapper.find('td').at(0).text()).toContain(transaction.type);
       expect(wrapper.find('td').at(1).text()).toContain(transaction.description);
       expect(wrapper.find('td').at(2).text()).toContain(expectedAmount);
       expect(wrapper.find('td').at(3).text()).toContain(expectedDate);
+      expect(wrapper.find('td').at(4).text()).toContain(transaction.receiver.user.name);
     });
   });
 });

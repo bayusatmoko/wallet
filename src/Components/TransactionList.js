@@ -11,6 +11,7 @@ class TransactionList extends React.PureComponent {
         <th>Description</th>
         <th>Amount</th>
         <th>Date</th>
+        <th>Receiver</th>
       </tr>
     </thead>
   );

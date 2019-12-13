@@ -12,6 +12,8 @@ describe('DashboardContainer', () => {
   let wrapper;
   let wallet;
   let walletResponse;
+  let user;
+  let userResponse;
   let transactionResponse;
   let firstTransaction;
   let secondTransaction;
@@ -25,6 +27,16 @@ describe('DashboardContainer', () => {
       createdAt: '2019-11-28T13:26:15.+07:00',
       updatedAt: '2019-11-28T13:26:15.+07:00'
     };
+    user = {
+      id: 1,
+      name: 'Fadel',
+      password: 'Bankbtpn99',
+      email: 'fadelay@gmail.com',
+      phoneNumber: '083812345678',
+      createdAt: '2019-12-13T03:51:27.042Z',
+      updatedAt: '2019-12-13T03:51:27.042Z'
+    };
+    userResponse = { data: user };
     firstTransaction = {
       id: 1,
       walletId: 1,
@@ -53,6 +65,7 @@ describe('DashboardContainer', () => {
       updatedAt: '2019-11-28T13:26:15.063Z'
     };
     walletResponse = { data: wallet };
+    axios.get.mockResolvedValueOnce(userResponse);
     axios.get.mockResolvedValueOnce(walletResponse);
     transactionResponse = { data: [firstTransaction, secondTransaction, thirdTransaction] };
     axios.get.mockResolvedValueOnce(transactionResponse);

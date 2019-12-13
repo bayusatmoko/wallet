@@ -10,8 +10,9 @@ class TransactionItem extends React.PureComponent {
       <tr className="transaction__item" key={transaction.id}>
         <td>{transaction.type}</td>
         <td>{transaction.description}</td>
-        <td>{formatCurrency(transaction.amount)}</td>
+        <td>{formatCurrency(transaction.nominal)}</td>
         <td>{formatDate(transaction.createdAt)}</td>
+        <td>{transaction.receiver.user.name}</td>
       </tr>
     );
   }

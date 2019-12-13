@@ -1,12 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
-import {
-  Switch,
-  Route,
-  NavLink
-} from 'react-router-dom';
-import background from './assets/images/background.jpg';
+import { NavLink, Route, Switch } from 'react-router-dom';
 import phoenix from './phoenix.png';
 import TransactionContainer from './Containers/TransactionContainer';
 import DashboardContainer from './Containers/DashboardContainer';
