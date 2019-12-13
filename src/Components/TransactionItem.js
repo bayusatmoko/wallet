@@ -2,26 +2,55 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import formatCurrency from '../utils/formatCurrency';
 import formatDate from '../utils/formatDate';
+import styleConstant from '../styleConstant';
 
 class TransactionItem extends React.PureComponent {
+  _setNominalColor = (transaction, walletId) => {
+    if (transaction.type === TransactionItem.TYPE.DEPOSIT
+      || transaction.receiverWalletId === walletId) {
+      return styleConstant.fontColor.DEPOSIT;
+    }
+    return styleConstant.fontColor.TRANSFER;
+  }
+
+  _renderSenderReceiver = (transaction, walletId) => {
+    if (transaction.type === TransactionItem.TYPE.DEPOSIT) {
+      return '';
+    }
+    if (transaction.receiverWalletId === walletId) {
+      return `From ${transaction.sender.user.name}`;
+    }
+    return `To ${transaction.receiver.user.name}`;
+  }
+
   render() {
-    const { transaction } = this.props;
+    const { transaction, walletId } = this.props;
     return (
       <tr className="transaction__item" key={transaction.id}>
         <td>{transaction.type}</td>
         <td>{transaction.description}</td>
-        <td>{formatCurrency(transaction.nominal)}</td>
+        <td className={this._setNominalColor(transaction, walletId)}>
+          {formatCurrency(transaction.nominal)}
+        </td>
         <td>{formatDate(transaction.createdAt)}</td>
-        <td>{transaction.receiver.user.name}</td>
+        <td>
+          {this._renderSenderReceiver(transaction, walletId)}
+        </td>
       </tr>
     );
   }
 }
 TransactionItem.propTypes = {
   transaction: PropTypes.shape({
-    amount: PropTypes.number.isRequired,
+    nominal: PropTypes.number.isRequired,
     description: PropTypes.string,
     createdAt: PropTypes.string.isRequired
   }).isRequired
 };
+
+TransactionItem.TYPE = {
+  DEPOSIT: 'DEPOSIT',
+  TRANSFER: 'TRANSFER'
+};
+
 export default TransactionItem;
