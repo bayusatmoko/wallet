@@ -4,6 +4,7 @@ import React from 'react';
 import App from './App';
 import TransactionContainer from './Containers/TransactionContainer';
 import DashboardContainer from './Containers/DashboardContainer';
+import DepositContainer from './Containers/DepositContainer';
 
 describe('App', () => {
   describe('#render', () => {
@@ -14,8 +15,8 @@ describe('App', () => {
         </MemoryRouter>
       );
 
-      expect(wrapper.find(DashboardContainer)).toHaveLength(0);
       expect(wrapper.find('Route').props().path).toEqual('/transaction');
+      expect(wrapper.find(DashboardContainer)).toHaveLength(0);
       expect(wrapper.find(TransactionContainer)).toHaveLength(1);
     });
 
@@ -26,9 +27,22 @@ describe('App', () => {
         </MemoryRouter>
       );
 
-      expect(wrapper.find(DashboardContainer)).toHaveLength(1);
       expect(wrapper.find('Route').props().path).toEqual('/');
+      expect(wrapper.find(DashboardContainer)).toHaveLength(1);
       expect(wrapper.find(TransactionContainer)).toHaveLength(0);
+    });
+
+    it('should render to Deposit page when the path url is /deposit', () => {
+      const wrapper = mount(
+        <MemoryRouter initialEntries={['/deposit']}>
+          <App />
+        </MemoryRouter>
+      );
+
+      expect(wrapper.find('Route').props().path).toEqual('/deposit');
+      expect(wrapper.find(DashboardContainer)).toHaveLength(0);
+      expect(wrapper.find(TransactionContainer)).toHaveLength(0);
+      expect(wrapper.find(DepositContainer)).toHaveLength(1);
     });
   });
 });

@@ -10,12 +10,13 @@ import background from './assets/images/background.jpg';
 import phoenix from './phoenix.png';
 import TransactionContainer from './Containers/TransactionContainer';
 import DashboardContainer from './Containers/DashboardContainer';
+import DepositContainer from './Containers/DepositContainer';
 import NoMatch from './Components/NoMatch';
 import UserInfoContainer from './Containers/UserInfoContainer';
 
 class App extends React.PureComponent {
   render() {
-    const API_URL = 'http://localhost:3333';
+    const API_URL = 'http://localhost:3000';
     return (
       <div className="App">
         <header>
@@ -39,6 +40,9 @@ class App extends React.PureComponent {
             <li>
               <NavLink exact to="/transaction" activeClassName="active">Transaction</NavLink>
             </li>
+            <li>
+              <NavLink exact to="/deposit" activeClassName="active">Deposit</NavLink>
+            </li>
           </ul>
         </header>
         <main>
@@ -46,6 +50,9 @@ class App extends React.PureComponent {
             <Switch>
               <Route exact path="/transaction">
                 <TransactionContainer API_URL={API_URL} />
+              </Route>
+              <Route exact path="/deposit">
+                <DepositContainer API_URL={API_URL} />
               </Route>
               <Route exact path="/">
                 <DashboardContainer API_URL={API_URL} />
