@@ -26,7 +26,7 @@ describe('TransferContainer', () => {
   }];
   const transaction = {
     walletId: 1,
-    receiverWalletId: 1,
+    receiverWalletId: 2,
     type: 'TRANSFER',
     nominal: 1250,
     description: 'Payslip 2019-11-28'
@@ -56,6 +56,18 @@ describe('TransferContainer', () => {
       receiverList.simulate('click', users[0]);
 
       expect(wrapper.find('#receiver-selected').text()).toEqual(users[0].name);
+    });
+
+    it('should call POST with transaction data when button submit is clicked', async () => {
+      axios.post.mockResolvedValue({ data: transaction });
+      const transactionForm = wrapper.find('TransactionForm');
+      const receiverList = wrapper.find('ReceiverList');
+
+      receiverList.simulate('click', users[1]);
+      transactionForm.simulate('submit', transaction);
+      await flushPromises();
+
+      expect(axios.post).toHaveBeenCalledWith(`${API_URL}/transactions`, transaction);
     });
   });
 });

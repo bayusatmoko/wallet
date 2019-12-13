@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import ReceiverList from '../Components/ReceiverList';
 import ReceiverSearch from '../Components/ReceiverSearch';
+import TransactionForm from '../Components/TransactionForm';
 
 class TransferContainer extends Component {
   constructor(props) {
@@ -23,6 +24,28 @@ class TransferContainer extends Component {
     this.setState({ selectedReceiver: receiver });
   };
 
+  _addTransaction = async (newTransaction) => {
+    const { API_URL } = this.props;
+    try {
+      await axios.post(`${API_URL}/transactions`, newTransaction);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  _handleSubmit = async ({ nominal, description }) => {
+    const { selectedReceiver } = this.state;
+    const walletId = 1;
+    const newTransaction = {
+      walletId,
+      receiverWalletId: selectedReceiver.wallet.id,
+      nominal,
+      description,
+      type: 'TRANSFER'
+    };
+    await this._addTransaction(newTransaction);
+  };
+
   render() {
     const { receivers, selectedReceiver } = this.state;
     return (
@@ -30,6 +53,7 @@ class TransferContainer extends Component {
         <ReceiverSearch onSubmit={this._handleSearch} />
         <ReceiverList receivers={receivers} onClick={this._handleSelectReceiver} />
         <p id="receiver-selected">{selectedReceiver.name}</p>
+        <TransactionForm onSubmit={this._handleSubmit} />
       </div>
     );
   }
