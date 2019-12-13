@@ -17,11 +17,11 @@ class UserInfo extends React.PureComponent {
           <h5 className="user-name">{user.name}</h5>
           <div>
             <img style={{ width: 20, height: 20 }} src={phoneImage} alt="" />
-            <span style={{ fontSize: 25, marginLeft: 20 }} className="user-phone">{user.phoneNumber}</span>
+            <span style={{ fontSize: 20, marginLeft: 20 }} className="user-phone">{user.phoneNumber}</span>
           </div>
           <div>
             <img style={{ width: 30, height: 20 }} src={emailImage} alt="" />
-            <span style={{ fontSize: 25, marginLeft: 10 }} className="user-email">{user.email}</span>
+            <span style={{ fontSize: 20, marginLeft: 10 }} className="user-email">{user.email}</span>
           </div>
         </div>
       </li>
