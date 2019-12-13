@@ -4,8 +4,7 @@ import axios from 'axios';
 import DashboardContainer from './DashboardContainer';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
-import LastTransaction from '../Components/LastTransaction';
-import TransactionList from "../Components/TransactionList";
+import TransactionList from '../Components/TransactionList';
 
 jest.mock('axios');
 
@@ -17,7 +16,7 @@ describe('DashboardContainer', () => {
   let firstTransaction;
   let secondTransaction;
   let thirdTransaction;
-  const url = 'http://localhost:4000';
+  const url = 'http://localhost:3000';
   beforeEach(() => {
     wallet = {
       id: 1,
@@ -71,7 +70,7 @@ describe('DashboardContainer', () => {
     it('should return data wallet from server', async () => {
       await flushPromises();
 
-      expect(axios.get).toHaveBeenCalledWith(`${url}/wallets/${wallet.id}`);
+      expect(axios.get).toHaveBeenCalledWith(`${url}/users/${wallet.id}/wallets`);
       expect(wrapper.find(Wallet).props().wallet).toEqual(wallet);
     });
 
