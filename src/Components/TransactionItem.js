@@ -2,24 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import formatCurrency from '../utils/formatCurrency';
 import formatDate from '../utils/formatDate';
+import styleConstant from '../styleConstant';
 
 class TransactionItem extends React.PureComponent {
-  _renderNominal = (transaction, walletId) => (
-    <td className={transaction.type === 'DEPOSIT' || transaction.receiverWalletId === walletId
-      ? 'green-text'
-      : 'red-text'}
-    >
-      {formatCurrency(transaction.nominal)}
-    </td>
-  )
+  _setNominalColor = (transaction, walletId) => {
+    if (transaction.type === TransactionItem.TYPE.DEPOSIT
+      || transaction.receiverWalletId === walletId) {
+      return styleConstant.fontColor.DEPOSIT;
+    }
+    return styleConstant.fontColor.TRANSFER;
+  }
 
-  _renderSenderReceiver = (transaction, walletId) => (
-    <td>
-      {transaction.receiverWalletId === walletId
-        ? `From ${transaction.sender.user.name}`
-        : `To ${transaction.receiver.user.name}`}
-    </td>
-  )
+  _renderSenderReceiver = (transaction, walletId) => {
+    if (transaction.type === TransactionItem.TYPE.DEPOSIT) {
+      return '';
+    }
+    if (transaction.receiverWalletId === walletId) {
+      return `From ${transaction.sender.user.name}`;
+    }
+    return `To ${transaction.receiver.user.name}`;
+  }
 
   render() {
     const { transaction, walletId } = this.props;
@@ -27,9 +29,13 @@ class TransactionItem extends React.PureComponent {
       <tr className="transaction__item" key={transaction.id}>
         <td>{transaction.type}</td>
         <td>{transaction.description}</td>
-        {this._renderNominal(transaction, walletId)}
+        <td className={this._setNominalColor(transaction, walletId)}>
+          {formatCurrency(transaction.nominal)}
+        </td>
         <td>{formatDate(transaction.createdAt)}</td>
-        {this._renderSenderReceiver(transaction, walletId)}
+        <td>
+          {this._renderSenderReceiver(transaction, walletId)}
+        </td>
       </tr>
     );
   }
@@ -41,4 +47,10 @@ TransactionItem.propTypes = {
     createdAt: PropTypes.string.isRequired
   }).isRequired
 };
+
+TransactionItem.TYPE = {
+  DEPOSIT: 'DEPOSIT',
+  TRANSFER: 'TRANSFER'
+};
+
 export default TransactionItem;
