@@ -11,16 +11,18 @@ class DepositContainer extends React.PureComponent {
     super(props);
     this.state = {
       error: '',
-      balance: 0
+      balance: 0,
+      isSubmitted: false
     };
   }
 
-  _addTransaction = async (transaction) => {
+  _addTransaction = async (newTransaction) => {
     const { API_URL } = this.props;
     try {
-      await axios.post(`${API_URL}/transactions`, transaction);
+      console.log('sub');
+      await axios.post(`${API_URL}/transactions`, newTransaction);
       const { data: wallet } = await axios.get(`${API_URL}/users/${1}/wallets/`);
-      this.setState({ balance: wallet.balance });
+      this.setState({ balance: wallet.balance, error: '' });
     } catch (error) {
       this.setState({ error: error.message });
     }
@@ -35,6 +37,7 @@ class DepositContainer extends React.PureComponent {
       description,
       type: 'DEPOSIT'
     };
+    this.setState({ isSubmitted: true });
     await this._addTransaction(newTransaction);
   };
 
@@ -47,10 +50,11 @@ class DepositContainer extends React.PureComponent {
   };
 
   render() {
+    const { isSubmitted } = this.state;
     return (
       <div className="row">
         <TransactionForm onSubmit={this._handleSubmit} />
-        {this._renderNotification()}
+        {isSubmitted && this._renderNotification()}
       </div>
     );
   }

@@ -7,9 +7,8 @@ const FailedNotification = (props) => {
     <div className="row">
       <div className="col s12 m6 offset-m3 center">
         <div className="card-panel red">
-          <p className="white-text flow-text">Transaction failed!</p>
+          <p className="white-text flow-text">Transaction failed! Please try again in a few minutes.</p>
           <p id="failed-message" className="white-text flow-text">
-            Please try again in a few minutes.
             {message}
           </p>
         </div>

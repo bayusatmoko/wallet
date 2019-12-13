@@ -55,7 +55,7 @@ describe('DepositContainer', () => {
 
       transactionForm.simulate('submit', transaction);
       await flushPromises();
-      console.log(wrapper.debug());
+
       expect(wrapper.find('SuccessNotification').length).toBe(1);
       expect(wrapper.find('FailedNotification').length).toBe(0);
     });
