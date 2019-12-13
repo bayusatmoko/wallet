@@ -11,6 +11,7 @@ import phoenix from './phoenix.png';
 import TransactionContainer from './Containers/TransactionContainer';
 import DashboardContainer from './Containers/DashboardContainer';
 import NoMatch from './Components/NoMatch';
+import UserInfoContainer from './Containers/UserInfoContainer';
 
 class App extends React.PureComponent {
   render() {
@@ -31,16 +32,7 @@ class App extends React.PureComponent {
             </NavLink>
           </nav>
           <ul id="nav-mobile" className="sidenav sidenav-fixed">
-            <li>
-              <div className="user-view">
-                <div className="background">
-                  <img className="background-nav" src={background} alt="user background" />
-                </div>
-                <img className="circle" src="assets/images/user-icon.png" alt="user icon" />
-                <span className="user-name">Bill Gates</span>
-                <span className="email">bill-gates@microsoft.com</span>
-              </div>
-            </li>
+            <UserInfoContainer />
             <li>
               <NavLink exact to="/" activeClassName="active">Dashboard</NavLink>
             </li>
