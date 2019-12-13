@@ -10,7 +10,7 @@ class TransactionItem extends React.PureComponent {
       <tr className="transaction__item" key={transaction.id}>
         <td>{transaction.type}</td>
         <td>{transaction.description}</td>
-        <td>{formatCurrency(transaction.amount)}</td>
+        <td>{formatCurrency(transaction.nominal)}</td>
         <td>{formatDate(transaction.createdAt)}</td>
       </tr>
     );
@@ -18,7 +18,7 @@ class TransactionItem extends React.PureComponent {
 }
 TransactionItem.propTypes = {
   transaction: PropTypes.shape({
-    amount: PropTypes.number.isRequired,
+    nominal: PropTypes.number.isRequired,
     description: PropTypes.string,
     createdAt: PropTypes.string.isRequired
   }).isRequired
