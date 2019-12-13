@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Balance from './Balance';
-import background from '../assets/images/background.jpg';
 
 class Wallet extends React.PureComponent {
   render() {
