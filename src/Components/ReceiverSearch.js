@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const ReceiverSearch = (props) => {
-  const { onChange } = props;
+class ReceiverSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: ''
+    };
+  }
 
-  const _handleChange = (event) => {
+  _handleChange = (event) => {
     const { value } = event.target;
-    onChange(value);
+    this.setState({ query: value });
   };
 
-  return (
-    <input id="search" onChange={_handleChange} />
-  );
-};
+  _handleSubmit = () => {
+    const { query } = this.state;
+    const { onSubmit } = this.props;
+    onSubmit(query);
+  };
+
+  render() {
+    const { query } = this.state;
+    return (
+      <>
+        <input id="search" onChange={this._handleChange} value={query} />
+        <button type="submit" id="button" onClick={this._handleSubmit}>Search</button>
+      </>
+    );
+  }
+}
 
 ReceiverSearch.propTypes = {
-  onChange: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default ReceiverSearch;
