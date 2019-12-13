@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import 'materialize-css/dist/css/materialize.min.css';
 import PropTypes from 'prop-types';
-import TransactionForm from '../Components/TransactionForm';
 import TransactionList from '../Components/TransactionList';
 import TransactionSearch from '../Components/TransactionSearch';
 import TransactionError from '../Components/TransactionError';
@@ -27,17 +26,6 @@ class TransactionContainer extends React.PureComponent {
       this.setState({ error: error.message });
     }
   }
-
-  _handleSubmit = async (newTransaction) => {
-    const { API_URL } = this.props;
-    try {
-      const response = await axios.post(`${API_URL}/transactions`, newTransaction);
-      const { transactions } = this.state;
-      this.setState({ transactions: [...transactions, response.data], error: '' });
-    } catch (error) {
-      this.setState({ error: error.message });
-    }
-  };
 
   _handleSearch = (value) => {
     this.setState({
@@ -69,7 +57,6 @@ class TransactionContainer extends React.PureComponent {
     const { error } = this.state;
     return (
       <div className="row">
-        <TransactionForm onSubmit={this._handleSubmit} />
         <div className="row">
           <TransactionSort onSort={this._handleSort} />
           <TransactionSearch onSearch={this._handleSearch} />
