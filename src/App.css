@@ -40,6 +40,7 @@
 .user-name{
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
 }
 
 .id-wallet{
@@ -55,4 +56,12 @@
     justify-content: center;
 }
 
+.user-image{
+    align-self: center;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
 

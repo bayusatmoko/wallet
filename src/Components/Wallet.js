@@ -10,7 +10,7 @@ class Wallet extends React.PureComponent {
         <div className="col s12 m8 offset-m2 ">
           <div className="card-content white-text dashboard__wallet--card">
             <div className="wallet-greeting">
-              <h2>
+              <h2 id="user-name">
               Hi,
                 {' '}
                 {user.name}
@@ -18,12 +18,6 @@ class Wallet extends React.PureComponent {
                 {' '}
                 {' '}
               </h2>
-              <span className="id-wallet" id="wallet-id">
-                (
-                {'ID : '}
-                {wallet.id}
-              )
-              </span>
             </div>
             {/* <h5 className="card-title dashboard__wallet--id" id="wallet-id">{wallet.id}</h5> */}
             <h5>Your Balance: </h5>
