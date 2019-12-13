@@ -4,22 +4,39 @@ import formatCurrency from '../utils/formatCurrency';
 import formatDate from '../utils/formatDate';
 
 class TransactionItem extends React.PureComponent {
+  _renderNominal = (transaction, walletId) => (
+    <td className={transaction.type === 'DEPOSIT' || transaction.receiverWalletId === walletId
+      ? 'green-text'
+      : 'red-text'}
+    >
+      {formatCurrency(transaction.nominal)}
+    </td>
+  )
+
+  _renderSenderReceiver = (transaction, walletId) => (
+    <td>
+      {transaction.receiverWalletId === walletId
+        ? `From ${transaction.sender.user.name}`
+        : `To ${transaction.receiver.user.name}`}
+    </td>
+  )
+
   render() {
-    const { transaction } = this.props;
+    const { transaction, walletId } = this.props;
     return (
       <tr className="transaction__item" key={transaction.id}>
         <td>{transaction.type}</td>
         <td>{transaction.description}</td>
-        <td>{formatCurrency(transaction.nominal)}</td>
+        {this._renderNominal(transaction, walletId)}
         <td>{formatDate(transaction.createdAt)}</td>
-        <td>{transaction.receiver.user.name}</td>
+        {this._renderSenderReceiver(transaction, walletId)}
       </tr>
     );
   }
 }
 TransactionItem.propTypes = {
   transaction: PropTypes.shape({
-    amount: PropTypes.number.isRequired,
+    nominal: PropTypes.number.isRequired,
     description: PropTypes.string,
     createdAt: PropTypes.string.isRequired
   }).isRequired
