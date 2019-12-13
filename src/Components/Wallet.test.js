@@ -24,7 +24,7 @@ describe('Wallet', () => {
   });
   describe('#render', () => {
     it('should render tr and with four td', () => {
-      const expectedIdText = '( ID : 1 )';
+      const expectedIdText = '(ID : 1)';
 
       expect(wrapper.find('.dashboard__wallet--card').length).toBe(1);
       expect(wrapper.find('#wallet-id').text()).toBe(expectedIdText);
