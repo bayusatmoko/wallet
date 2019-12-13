@@ -12,9 +12,9 @@ li a:hover{
 }
 
 .dashboard__wallet--card{
-  background-color: #40c4ff;
+  background-image: url("../src/assets/images/background.jpg");
   padding: 10%;
-  border-radius: 10px;
+  border-radius: 40px;
 }
 .dashboard__wallet--title{
   font-weight: bolder;

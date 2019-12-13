@@ -1,4 +1,58 @@
-nav .brand-logo:hover {
-    background-color: rgba(0, 0, 0, 0.3) !important;
+.balance{
+    font-weight: bold;
+    background-color: #8127fc;
+    border-radius: 10px;
+    padding: 10px;
+    /*opacity: 80%;*/
+}
+
+.background-nav{
+    width: 100%;
+}
+
+.background-header{
+    background-color: #B127FC;
+    height: 100px;
     padding: 10px;
 }
+
+.image-phoenix{
+    width: 100px;
+    height: 80px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.brand-logo{
+    padding: 2px;
+}
+
+.logo-name{
+    align-self: center;
+    font-weight: bold;
+    color: whitesmoke;
+}
+
+.logo-header{
+    display: flex;
+}
+
+.user-name{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.id-wallet{
+    padding-top: 15px;
+    font-size: 1.4em;
+    margin-left : 10px;
+}
+
+.wallet-greeting{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
