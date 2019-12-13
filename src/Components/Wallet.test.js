@@ -23,11 +23,13 @@ describe('Wallet', () => {
     wrapper = shallow(<Wallet wallet={wallet} user={user} />);
   });
   describe('#render', () => {
-    it('should render tr and with four td', () => {
-      const expectedIdText = '(ID : 1)';
-
+    it('should render wallet info', () => {
       expect(wrapper.find('.dashboard__wallet--card').length).toBe(1);
-      expect(wrapper.find('#wallet-id').text()).toBe(expectedIdText);
+    });
+
+    it('should render wallet info card on the dashboard', () => {
+      expect(wrapper.find('#user-name').text()).toBe('Hi, Huda   ');
+      expect(wrapper.find('Balance').props().balance).toBe(wallet.balance);
     });
   });
 });
