@@ -10,7 +10,8 @@ class DepositContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      error: ''
+      error: '',
+      balance: 0
     };
   }
 
@@ -18,6 +19,8 @@ class DepositContainer extends React.PureComponent {
     const { API_URL } = this.props;
     try {
       await axios.post(`${API_URL}/transactions`, transaction);
+      const { data: wallet } = await axios.get(`${API_URL}/users/${1}/wallets/`);
+      this.setState({ balance: wallet.balance });
     } catch (error) {
       this.setState({ error: error.message });
     }
@@ -35,19 +38,23 @@ class DepositContainer extends React.PureComponent {
     await this._addTransaction(newTransaction);
   };
 
+  _renderNotification = () => {
+    const { error, balance } = this.state;
+    if (error) {
+      return (<FailedNotification message={error} />);
+    }
+    return (<SuccessNotification balance={balance} />);
+  };
+
   render() {
-    const { error } = this.state;
     return (
       <div className="row">
         <TransactionForm onSubmit={this._handleSubmit} />
-        {!error
-          ? <SuccessNotification balance={}/>
-          : <FailedNotification message={error} />}
+        {this._renderNotification()}
       </div>
     );
   }
 }
-
 
 DepositContainer.propTypes = {
   API_URL: PropTypes.string.isRequired
