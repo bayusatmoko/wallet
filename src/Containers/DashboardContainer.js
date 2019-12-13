@@ -42,7 +42,6 @@ class DashboardContainer extends React.PureComponent {
     const { API_URL } = this.props;
     try {
       const { data: user } = await axios.get(`${API_URL}/users/${userId}`);
-      console.log(user);
       this.setState({ user, errorWallet: '' });
     } catch (e) {
       this.setState({ errorWallet: e.message });
