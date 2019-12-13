@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formatCurrency from '../utils/formatCurrency';
+import Balance from './Balance';
 
 class Wallet extends React.PureComponent {
   render() {
@@ -11,7 +11,7 @@ class Wallet extends React.PureComponent {
           <div className="card-content white-text dashboard__wallet--card">
             <h5 className="card-title dashboard__wallet--title">My Wallet</h5>
             <h5 className="card-title dashboard__wallet--id" id="wallet-id">{wallet.id}</h5>
-            <h4 className="card-title dashboard__wallet--balance" id="balance">{formatCurrency(wallet.balance)}</h4>
+            <Balance balance={wallet.balance} />
           </div>
         </div>
       </div>
