@@ -15,7 +15,7 @@ import UserInfoContainer from './Containers/UserInfoContainer';
 
 class App extends React.PureComponent {
   render() {
-    const API_URL = 'http://localhost:3333';
+    const API_URL = 'http://localhost:3000';
     return (
       <div className="App">
         <header>
