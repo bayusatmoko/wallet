@@ -38,6 +38,11 @@ describe('DepositContainer', () => {
       expect(axios.post).toHaveBeenCalledWith(`${API_URL}/transactions`, transaction);
     });
 
+    it('should not render any notification when not submitted yet', () => {
+      expect(wrapper.find('FailedNotification').length).toBe(0);
+      expect(wrapper.find('SuccessNotification').length).toBe(0);
+    });
+
     it('should not render success notification but render failed notification when failed to deposit', async () => {
       axios.post.mockRejectedValue(Error('Network Error'));
       wrapper = shallow(<DepositContainer API_URL={API_URL} />);
