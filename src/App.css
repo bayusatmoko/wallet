@@ -69,7 +69,8 @@
 .all-transaction{
     margin-top: 60px;
     overflow: scroll;
-    height: 700px;
+    height: 600px;
+    width: 1000px;
 }
 
 table thead tr th:nth-child(1){
@@ -121,6 +122,10 @@ tr:nth-child(2n){
 
 table tbody tr td{
     padding-left: 30px;
+}
+
+main{
+    padding-left: 13%;
 }
 
 
