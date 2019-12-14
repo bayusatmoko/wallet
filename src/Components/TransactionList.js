@@ -9,7 +9,7 @@ class TransactionList extends React.PureComponent {
         <th>Type</th>
         <th>Description</th>
         <th>Amount</th>
-        <th>Date</th>
+        <th className="date-head">Date</th>
         <th>Receiver/Sender</th>
       </tr>
     </thead>
@@ -18,7 +18,7 @@ class TransactionList extends React.PureComponent {
   render() {
     const { transactions, walletId } = this.props;
     return (
-      <table>
+      <table className="striped">
         {this._renderTableHeader()}
         <tbody className="transaction">
           {transactions.map((transaction, index) => (
