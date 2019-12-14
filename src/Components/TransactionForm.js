@@ -22,9 +22,9 @@ class TransactionForm extends React.PureComponent {
     this.setState({ [name]: value });
   };
 
-  _checkAmountInput = (nominal) => {
-    if (nominal < 0) {
-      alert('Amount cannot be negative');
+  _checkNominalInput = (nominal) => {
+    if (nominal <= 10000 || nominal >= 100000000) {
+      alert('Amount must be between Rp10.000 and Rp100.000.000');
       return false;
     }
     return true;
@@ -33,12 +33,12 @@ class TransactionForm extends React.PureComponent {
   _handleSubmit = () => {
     const { onSubmit } = this.props;
     const { nominal, description } = this.state;
-    if (this._checkAmountInput(nominal)) {
+    if (this._checkNominalInput(nominal)) {
       onSubmit({ nominal, description });
     }
   };
 
-  _renderAmountInput = () => {
+  _renderNominalInput = () => {
     const { nominal } = this.state;
     return (
       <div className="row">
@@ -81,7 +81,7 @@ class TransactionForm extends React.PureComponent {
         <div className="col card l6 offset-l3 s12">
           <div className="card-content">
             <span className="card-title">{formTitle}</span>
-            {this._renderAmountInput()}
+            {this._renderNominalInput()}
             {this._renderDescriptionInput()}
             {this._renderSubmitButton()}
           </div>

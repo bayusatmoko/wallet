@@ -6,7 +6,6 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
-import background from './assets/images/background.jpg';
 import phoenix from './assets/images/phoenix.png';
 import NoMatch from './Components/NoMatch';
 import DashboardContainer from './Containers/DashboardContainer';

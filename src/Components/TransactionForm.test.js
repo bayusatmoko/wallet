@@ -10,12 +10,13 @@ describe('TransactionForm', () => {
   beforeEach(() => {
     MockDate.set('2019-12-12');
     firstTransaction = {
-      nominal: 2500,
+      nominal: 250000,
       description: 'Salary from BTPN'
     };
     handleSubmit = jest.fn();
     wrapper = shallow(<TransactionForm
       onSubmit={handleSubmit}
+      formTitle="Deposit"
     />);
   });
   afterEach(() => {
@@ -43,8 +44,24 @@ describe('TransactionForm', () => {
       wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: firstTransaction.nominal } });
       wrapper.find('#description-input').simulate('change', { target: { name: 'description', value: firstTransaction.description } });
       wrapper.find('#submit-button').simulate('click');
-      expectedResult.createdAt = new Date();
+
       expect(handleSubmit).toHaveBeenCalledWith(expectedResult);
+    });
+
+    it('should not call onSubmit when the nominal input is under Rp10.000', () => {
+      wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: 7500 } });
+      wrapper.find('#description-input').simulate('change', { target: { name: 'description', value: firstTransaction.description } });
+      wrapper.find('#submit-button').simulate('click');
+
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
+
+    it('should not call onSubmit when the nominal input is above Rp10.000', () => {
+      wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: 120000000 } });
+      wrapper.find('#description-input').simulate('change', { target: { name: 'description', value: firstTransaction.description } });
+      wrapper.find('#submit-button').simulate('click');
+
+      expect(handleSubmit).not.toHaveBeenCalled();
     });
   });
 });
