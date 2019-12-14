@@ -7,12 +7,13 @@ import {
   NavLink
 } from 'react-router-dom';
 import background from './assets/images/background.jpg';
-import phoenix from './phoenix.png';
-import TransactionContainer from './Containers/TransactionContainer';
-import DashboardContainer from './Containers/DashboardContainer';
-import DepositContainer from './Containers/DepositContainer';
+import phoenix from './assets/images/phoenix.png';
 import NoMatch from './Components/NoMatch';
+import DashboardContainer from './Containers/DashboardContainer';
 import UserInfoContainer from './Containers/UserInfoContainer';
+import TransactionContainer from './Containers/TransactionContainer';
+import DepositContainer from './Containers/DepositContainer';
+import TransferContainer from './Containers/TransferContainer';
 
 class App extends React.PureComponent {
   render() {
@@ -43,6 +44,9 @@ class App extends React.PureComponent {
             <li>
               <NavLink exact to="/deposit" activeClassName="active">Deposit</NavLink>
             </li>
+            <li>
+              <NavLink exact to="/transfer" activeClassName="active">Transfer</NavLink>
+            </li>
           </ul>
         </header>
         <main>
@@ -56,6 +60,9 @@ class App extends React.PureComponent {
               </Route>
               <Route exact path="/">
                 <DashboardContainer API_URL={API_URL} />
+              </Route>
+              <Route exact path="/transfer">
+                <TransferContainer API_URL={API_URL} />
               </Route>
               <Route path="*">
                 <NoMatch />
