@@ -40,8 +40,10 @@ describe('LastTransaction', () => {
     wrapper = shallow(<LastTransaction transactions={lastTransactions} />);
   });
   describe('#render', () => {
-    it('should render div with card class triple', () => {
-      expect(wrapper.find('.last-transaction__card').length).toBe(3);
+    it('should render table, thead and tbody', () => {
+      expect(wrapper.find('table').length).toBe(1);
+      expect(wrapper.find('thead').length).toBe(1);
+      expect(wrapper.find('tbody').length).toBe(1);
     });
   });
 });

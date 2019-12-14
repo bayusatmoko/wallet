@@ -9,7 +9,9 @@ class TransactionHistoryContainer extends React.PureComponent {
     super(props);
     this.state = {
       transactions: [],
-      errorTransaction: ''
+      errorTransaction: '',
+      sortColumn: 'date',
+      orderBy: 'desc'
     };
   }
 
@@ -28,12 +30,37 @@ class TransactionHistoryContainer extends React.PureComponent {
       }
     };
 
+    _handleSort = (sortColumn, orderBy) => {
+      this.setState({ sortColumn, orderBy });
+    };
+
+    _sortByDate = () => {
+      const { transactions, orderBy } = this.state;
+      return [...transactions].sort((a, b) => {
+        if (orderBy === 'desc') {
+          return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+        }
+        return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+      });
+    };
+
+    _sortTransactionsByDate = () => {
+      const { sortColumn } = this.state;
+      let sortedTransaction;
+      if (sortColumn === 'date') {
+        sortedTransaction = this._sortByDate();
+      }
+      return sortedTransaction;
+    };
+
+
     render() {
-      const { transactions, errorTransaction } = this.state;
+      const { errorTransaction } = this.state;
+      const sortedTransaction = this._sortTransactionsByDate();
       return (
         <div className="all-transaction">
           {!errorTransaction
-            ? <TransactionList transactions={transactions} />
+            ? <TransactionList transactions={sortedTransaction} onSort={this._handleSort} />
             : <TransactionError message={errorTransaction} />}
         </div>
       );

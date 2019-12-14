@@ -4,7 +4,7 @@ import axios from 'axios';
 import DashboardContainer from './DashboardContainer';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
-import TransactionList from '../Components/TransactionList';
+import LastTransaction from '../Components/LastTransaction';
 
 jest.mock('axios');
 
@@ -100,7 +100,7 @@ describe('DashboardContainer', () => {
     it('should return three last transaction list from json-server', async () => {
       await flushPromises();
 
-      expect(wrapper.find(TransactionList).props().transactions).toEqual(
+      expect(wrapper.find(LastTransaction).props().transactions).toEqual(
         [firstTransaction, secondTransaction, thirdTransaction]
       );
     });

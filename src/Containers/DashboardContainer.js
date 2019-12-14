@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
 import TransactionError from '../Components/TransactionError';
-import TransactionList from '../Components/TransactionList';
+import LastTransaction from '../Components/LastTransaction';
 
 class DashboardContainer extends React.PureComponent {
   constructor(props) {
@@ -69,7 +69,7 @@ class DashboardContainer extends React.PureComponent {
           : <WalletError message={errorWallet} />}
         <br />
         {!errorTransaction
-          ? <TransactionList transactions={transactions} walletId={wallet.id} />
+          ? <LastTransaction transactions={transactions} walletId={wallet.id} />
           : <TransactionError message={errorTransaction} />}
       </div>
     );
