@@ -1,5 +1,5 @@
 import React from 'react';
-import '../not-found.css';
+import './not-found.css';
 
 const NoMatch = () => (
   <section className="not-found">
