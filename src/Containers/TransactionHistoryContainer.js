@@ -44,11 +44,24 @@ class TransactionHistoryContainer extends React.PureComponent {
       });
     };
 
-    _sortTransactionsByDate = () => {
+  _sortByNominal = () => {
+    const { transactions, orderBy } = this.state;
+    return [...transactions].sort((a, b) => {
+      if (orderBy === 'desc') {
+        return b.nominal - a.nominal;
+      }
+      return a.nominal - b.nominal;
+    });
+  };
+
+    _sortTransactions = () => {
       const { sortColumn } = this.state;
       let sortedTransaction;
       if (sortColumn === 'date') {
         sortedTransaction = this._sortByDate();
+      }
+      if (sortColumn === 'nominal') {
+        sortedTransaction = this._sortByNominal();
       }
       return sortedTransaction;
     };
@@ -56,7 +69,7 @@ class TransactionHistoryContainer extends React.PureComponent {
 
     render() {
       const { errorTransaction } = this.state;
-      const sortedTransaction = this._sortTransactionsByDate();
+      const sortedTransaction = this._sortTransactions();
       return (
         <div className="all-transaction">
           {!errorTransaction
