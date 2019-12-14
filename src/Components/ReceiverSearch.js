@@ -20,13 +20,31 @@ class ReceiverSearch extends Component {
     onSubmit(query);
   };
 
-  render() {
+  _renderSearchInput = () => {
     const { query } = this.state;
     return (
-      <>
-        <input id="search" onChange={this._handleChange} value={query} />
-        <button type="submit" id="button" onClick={this._handleSubmit}>Search</button>
-      </>
+      <div className="input-field">
+        <i className="material-icons prefix">search</i>
+        <input className="input-field" type="text" id="search-input" name="search-input" onChange={this._handleChange} value={query} />
+        <label htmlFor="search-input">Search by email or phone number</label>
+      </div>
+    );
+  };
+
+  _renderSubmitButton = () => (
+    <div className="input-field">
+      <button className="btn waves-effect waves-light col l12 s12 m8 offset-m2" type="submit" id="submit-button" onClick={this._handleSubmit}>
+          OK
+      </button>
+    </div>
+  );
+
+  render() {
+    return (
+      <div className="row">
+        {this._renderSearchInput()}
+        {this._renderSubmitButton()}
+      </div>
     );
   }
 }

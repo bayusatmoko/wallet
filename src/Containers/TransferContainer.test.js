@@ -17,7 +17,7 @@ describe('TransferContainer', () => {
     }
   }, {
     id: 2,
-    name: 'Hudaudah',
+    name: 'Huda',
     email: 'hudah@btpn.com',
     wallet: {
       id: 2,

@@ -4,18 +4,17 @@ import ReceiverSearch from './ReceiverSearch';
 
 describe('ReceiverSearch', () => {
   let wrapper;
-  let query;
+  const query = 'fadelay@gmail.com';
   let mockedOnSubmit;
   beforeEach(() => {
     mockedOnSubmit = jest.fn();
-    query = 'fadelay@gmail.com';
     wrapper = shallow(<ReceiverSearch onSubmit={mockedOnSubmit} />);
   });
 
   describe('#render', () => {
     it('should call onSubmit with search query', () => {
-      const searchInput = wrapper.find('#search');
-      const searchButton = wrapper.find('#button');
+      const searchInput = wrapper.find('#search-input');
+      const searchButton = wrapper.find('#submit-button');
 
       searchInput.simulate('change', { target: { value: query } });
       searchButton.simulate('click');
