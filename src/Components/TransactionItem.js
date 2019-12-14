@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import formatCurrency from '../utils/formatCurrency';
 import formatDate from '../utils/formatDate';
 import styleConstant from '../styleConstant';
@@ -11,7 +12,7 @@ class TransactionItem extends React.PureComponent {
       return styleConstant.fontColor.DEPOSIT;
     }
     return styleConstant.fontColor.TRANSFER;
-  }
+  };
 
   _renderSenderReceiver = (transaction, walletId) => {
     if (transaction.type === TransactionItem.TYPE.DEPOSIT) {
@@ -21,7 +22,7 @@ class TransactionItem extends React.PureComponent {
       return `From ${transaction.sender.user.name}`;
     }
     return `To ${transaction.receiver.user.name}`;
-  }
+  };
 
   render() {
     const { transaction, walletId } = this.props;
@@ -32,7 +33,7 @@ class TransactionItem extends React.PureComponent {
         <td className={this._setNominalColor(transaction, walletId)}>
           {formatCurrency(transaction.nominal)}
         </td>
-        <td>{formatDate(transaction.createdAt)}</td>
+        <td>{moment(transaction.createdAt).format('DD MMMM YYYY hh:mm:ss')}</td>
         <td>
           {this._renderSenderReceiver(transaction, walletId)}
         </td>
