@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const FailedNotification = (props) => {
   const { message } = props;
   return (
-    <div className="row">
+    <div className="row notification__failed">
       <div className="col s12 m6 offset-m3 center">
         <div className="card-panel red">
           <p className="white-text flow-text">Transaction failed! Please try again in a few minutes.</p>

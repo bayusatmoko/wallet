@@ -12,8 +12,6 @@ class TransactionForm extends React.PureComponent {
   }
 
   componentDidMount() {
-    const elements = document.querySelectorAll('select');
-    M.FormSelect.init(elements, {});
     M.AutoInit();
   }
 

@@ -31,7 +31,7 @@ class ReceiverSearch extends Component {
     return (
       <div className="input-field">
         <i className="material-icons prefix">search</i>
-        <input className="input-field" type="text" id="search-input" name="search-input" onChange={this._handleChange} value={query} onKeyUp={this._handleKeyUp} />
+        <input className="input-field" type="email" id="search-input" name="search-input" onChange={this._handleChange} value={query} onKeyUp={this._handleKeyUp} />
         <label htmlFor="search-input">Email</label>
       </div>
     );

@@ -4,8 +4,6 @@ import M from 'materialize-css';
 
 class TransactionSort extends React.PureComponent {
   componentDidMount() {
-    const elements = document.querySelectorAll('select');
-    M.FormSelect.init(elements, {});
     M.AutoInit();
   }
 

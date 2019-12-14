@@ -6,8 +6,8 @@ li a:hover{
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
-.dashboard__wallet, .transaction__form{
-  animation: animate-right 2s;
+.dashboard__wallet, .transaction__form, .notification__success, .notification__failed {
+  animation: animate-top 2s;
   position:relative;
 }
 
@@ -41,113 +41,113 @@ tr{
 }
 .transaction .transaction__item:nth-child(1n) {
   position: relative;
-  animation: animate-right 1s;
+  animation: animate-top 1s;
 }
 
 .transaction .transaction__item:nth-child(2n) {
   position: relative;
-  animation: animate-right 2s;
+  animation: animate-top 2s;
 }
 
 .transaction .transaction__item:nth-child(3n) {
   position: relative;
-  animation: animate-right 3s;
+  animation: animate-top 3s;
 }
 
 .transaction .transaction__item:nth-child(4n) {
   position: relative;
-  animation: animate-right 4s;
+  animation: animate-top 4s;
 }
 
 .transaction .transaction__item:nth-child(5n) {
   position: relative;
-  animation: animate-right 5s;
+  animation: animate-top 5s;
 }
 
 .transaction .transaction__item:nth-child(6n) {
   position: relative;
-  animation: animate-right 6s;
+  animation: animate-top 6s;
 }
 
 .transaction .transaction__item:nth-child(7n) {
   position: relative;
-  animation: animate-right 7s;
+  animation: animate-top 7s;
 }
 
 .transaction .transaction__item:nth-child(8n) {
   position: relative;
-  animation: animate-right 8s;
+  animation: animate-top 8s;
 }
 
 .transaction .transaction__item:nth-child(9n) {
   position: relative;
-  animation: animate-right 9s;
+  animation: animate-top 9s;
 }
 
 .transaction .transaction__item:nth-child(10n) {
   position: relative;
-  animation: animate-right 10s;
+  animation: animate-top 10s;
 }
 
 .transaction .transaction__item:nth-child(11n) {
   position: relative;
-  animation: animate-right 11s;
+  animation: animate-top 11s;
 }
 
 .transaction .transaction__item:nth-child(12n) {
   position: relative;
-  animation: animate-right 12s;
+  animation: animate-top 12s;
 }
 
 .transaction .transaction__item:nth-child(13n) {
   position: relative;
-  animation: animate-right 13s;
+  animation: animate-top 13s;
 }
 
 .transaction .transaction__item:nth-child(14n) {
   position: relative;
-  animation: animate-right 14s;
+  animation: animate-top 14s;
 }
 
 .transaction .transaction__item:nth-child(15n) {
   position: relative;
-  animation: animate-right 15s;
+  animation: animate-top 15s;
 }
 
 .transaction .transaction__item:nth-child(16n) {
   position: relative;
-  animation: animate-right 16s;
+  animation: animate-top 16s;
 }
 
 .transaction .transaction__item:nth-child(17n) {
   position: relative;
-  animation: animate-right 17s;
+  animation: animate-top 17s;
 }
 
 .transaction .transaction__item:nth-child(18n) {
   position: relative;
-  animation: animate-right 18s;
+  animation: animate-top 18s;
 }
 
 .transaction .transaction__item:nth-child(19n) {
   position: relative;
-  animation: animate-right 19s;
+  animation: animate-top 19s;
 }
 
 .transaction .transaction__item:nth-child(20n) {
   position: relative;
-  animation: animate-right 20s;
+  animation: animate-top 20s;
 }
 .divider{
   margin-bottom: 10px;
 }
-@keyframes animate-right {
+@keyframes animate-top {
   from {
-    right: -300px;
+    bottom: -30px;
     opacity: 0;
   }
   to {
-    right: 0;
+    bottom: 0;
     opacity: 1;
   }
 }
