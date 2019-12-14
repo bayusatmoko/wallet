@@ -3,23 +3,27 @@ import PropTypes from 'prop-types';
 import Balance from './Balance';
 
 class Wallet extends React.PureComponent {
-  render() {
+  _renderGreeting = () => {
     const { wallet, user } = this.props;
+    return (
+      <div className="wallet-greeting">
+        <h2>
+          {`Hi, ${user.name}`}
+        </h2>
+        <span className="id-wallet" id="wallet-id">
+          {`(ID : ${wallet.id})`}
+        </span>
+      </div>
+    );
+  };
+
+  render() {
+    const { wallet } = this.props;
     return (
       <div className="row center dashboard__wallet">
         <div className="col s12 m8 offset-m2 ">
           <div className="card-content white-text dashboard__wallet--card">
-            <div className="wallet-greeting">
-              <h2 id="user-name">
-              Hi,
-                {' '}
-                {user.name}
-                {' '}
-                {' '}
-                {' '}
-              </h2>
-            </div>
-            {/* <h5 className="card-title dashboard__wallet--id" id="wallet-id">{wallet.id}</h5> */}
+            {this._renderGreeting()}
             <h5>Your Balance: </h5>
             <Balance balance={wallet.balance} />
           </div>
@@ -29,14 +33,16 @@ class Wallet extends React.PureComponent {
   }
 }
 
-
 Wallet.propTypes = {
-  wallet: PropTypes.exact({
+  wallet: PropTypes.shape({
     id: PropTypes.number,
     balance: PropTypes.number,
     userId: PropTypes.number,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string
+  }).isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string
   }).isRequired
 };
 

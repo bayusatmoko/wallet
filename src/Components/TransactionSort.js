@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import M from 'materialize-css';
 
 class TransactionSort extends React.PureComponent {
+  componentDidMount() {
+    M.AutoInit();
+  }
+
   _handleSort = (event) => {
     const { value } = event.target;
     const { onSort } = this.props;

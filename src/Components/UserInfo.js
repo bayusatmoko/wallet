@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import background from '../assets/images/background.jpg';
-import phoneImage from '../phones-img.png';
-import emailImage from '../email-icon.png';
 
 class UserInfo extends React.PureComponent {
   render() {
@@ -28,5 +26,13 @@ class UserInfo extends React.PureComponent {
     );
   }
 }
+
+UserInfo.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default UserInfo;

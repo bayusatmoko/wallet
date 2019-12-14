@@ -16,7 +16,7 @@ class DashboardContainer extends React.PureComponent {
       errorWallet: '',
       userId: 1,
       user: {},
-      wallet: {}
+      wallet: { balance: 0 }
     };
   }
 
@@ -68,8 +68,7 @@ class DashboardContainer extends React.PureComponent {
         {!errorWallet ? <Wallet wallet={wallet} user={user} />
           : <WalletError message={errorWallet} />}
         <br />
-        {!errorTransaction
-          ? <LastTransaction transactions={transactions} walletId={wallet.id} />
+        {!errorTransaction ? <LastTransaction transactions={transactions} walletId={wallet.id} />
           : <TransactionError message={errorTransaction} />}
       </div>
     );

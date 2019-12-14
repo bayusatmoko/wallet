@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import formatCurrency from '../utils/formatCurrency';
-import formatDate from '../utils/formatDate';
 import styleConstant from '../styleConstant';
 
 class TransactionItem extends React.PureComponent {
@@ -43,10 +42,13 @@ class TransactionItem extends React.PureComponent {
 }
 TransactionItem.propTypes = {
   transaction: PropTypes.shape({
-    nominal: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
     description: PropTypes.string,
+    nominal: PropTypes.number.isRequired,
     createdAt: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  walletId: PropTypes.number.isRequired
 };
 
 TransactionItem.TYPE = {

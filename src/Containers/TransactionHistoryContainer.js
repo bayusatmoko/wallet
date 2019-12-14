@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import 'materialize-css/dist/css/materialize.min.css';
 import TransactionList from '../Components/TransactionList';
 import TransactionError from '../Components/TransactionError';
@@ -79,5 +80,9 @@ class TransactionHistoryContainer extends React.PureComponent {
       );
     }
 }
+
+TransactionHistoryContainer.propTypes = {
+  API_URL: PropTypes.string.isRequired
+};
 
 export default TransactionHistoryContainer;

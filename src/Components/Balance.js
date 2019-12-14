@@ -1,5 +1,6 @@
 import React from 'react';
 import Intl from 'intl';
+import PropTypes from 'prop-types';
 import locale from 'intl/locale-data/jsonp/id-ID';
 
 class Balance extends React.PureComponent {
@@ -18,5 +19,9 @@ class Balance extends React.PureComponent {
       );
     }
 }
+
+Balance.propTypes = {
+  balance: PropTypes.number.isRequired
+};
 
 export default Balance;

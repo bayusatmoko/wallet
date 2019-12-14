@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import TransactionItem from './TransactionItem';
 
 class TransactionList extends React.PureComponent {
@@ -33,29 +33,30 @@ class TransactionList extends React.PureComponent {
       return 'asc';
     }
     return 'desc';
-  }
+  };
 
-  _renderTableHeader = () => (
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-        <th className="clickableHeader" id="nominal-header" onClick={() => { this._handleSort('nominal'); }}>
-          Nominal
-          {' '}
-          {this.state.nominalOrder === 'asc' && <FontAwesomeIcon icon={faArrowUp} />}
-          {this.state.nominalOrder === 'desc' && <FontAwesomeIcon icon={faArrowDown} />}
-        </th>
-        <th className="clickableHeader" id="date-header" onClick={() => { this._handleSort('date'); }}>
-          Date
-          {' '}
-          {this.state.dateOrder === 'asc' && <FontAwesomeIcon icon={faArrowUp} />}
-          {this.state.dateOrder === 'desc' && <FontAwesomeIcon icon={faArrowDown} />}
-        </th>
-        <th>Receiver/Sender</th>
-      </tr>
-    </thead>
-  );
+  _renderTableHeader = () => {
+    const { dateOrder, nominalOrder } = this.state;
+    return (
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th className="clickableHeader" id="nominal-header" onClick={() => { this._handleSort('nominal'); }}>
+            {'Nominal '}
+            {nominalOrder === 'asc' && <FontAwesomeIcon icon={faArrowUp} />}
+            {nominalOrder === 'desc' && <FontAwesomeIcon icon={faArrowDown} />}
+          </th>
+          <th className="clickableHeader" id="date-header" onClick={() => { this._handleSort('date'); }}>
+            {'Date '}
+            {dateOrder === 'asc' && <FontAwesomeIcon icon={faArrowUp} />}
+            {dateOrder === 'desc' && <FontAwesomeIcon icon={faArrowDown} />}
+          </th>
+          <th>Receiver/Sender</th>
+        </tr>
+      </thead>
+    );
+  };
 
   render() {
     const { transactions, walletId } = this.props;
@@ -81,7 +82,9 @@ TransactionList.defaultProps = {
   transactions: []
 };
 TransactionList.propTypes = {
-  transactions: PropTypes.arrayOf(PropTypes.object)
+  transactions: PropTypes.arrayOf(PropTypes.object),
+  walletId: PropTypes.number.isRequired,
+  onSort: PropTypes.func.isRequired
 };
 
 export default TransactionList;

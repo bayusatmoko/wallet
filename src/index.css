@@ -6,8 +6,8 @@ li a:hover{
   background-color: #b78cfc !important;
 }
 
-.dashboard__wallet, .transaction__form{
-  animation: animate-right 2s;
+.dashboard__wallet, .transaction__form, .notification__success, .notification__failed {
+  animation: animate-top 2s;
   position:relative;
 }
 
@@ -42,19 +42,19 @@ tr{
 }
 .transaction .transaction__item:nth-child(1n) {
   position: relative;
-  animation: animate-right 3s;
+  animation: animate-top 1s;
 }
 
 .divider{
   margin-bottom: 10px;
 }
-@keyframes animate-right {
+@keyframes animate-top {
   from {
-    right: -300px;
+    bottom: -30px;
     opacity: 0;
   }
   to {
-    right: 0;
+    bottom: 0;
     opacity: 1;
   }
 }

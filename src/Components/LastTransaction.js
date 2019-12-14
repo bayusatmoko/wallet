@@ -39,7 +39,8 @@ LastTransaction.defaultProps = {
   transactions: []
 };
 LastTransaction.propTypes = {
-  transactions: PropTypes.arrayOf(PropTypes.object)
+  transactions: PropTypes.arrayOf(PropTypes.object),
+  walletId: PropTypes.number.isRequired
 };
 
 export default LastTransaction;

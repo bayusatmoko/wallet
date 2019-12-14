@@ -7,7 +7,11 @@ class UserInfoContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {
+        name: '',
+        email: '',
+        phoneNumber: ''
+      }
     };
   }
 
@@ -15,23 +19,23 @@ class UserInfoContainer extends React.PureComponent {
     await this._fetchUser();
   }
 
-    _fetchUser = async () => {
-      const userId = 1;
-      const fetchUserUrl = `http://localhost:3000/users/${userId}`;
-      try {
-        const { data: user } = await axios.get(fetchUserUrl);
-        this.setState({ user });
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-
-    render() {
-      const { user } = this.state;
-      return (
-        <UserInfo user={user} />
-      );
+  _fetchUser = async () => {
+    const userId = 1;
+    const fetchUserUrl = `http://localhost:3000/users/${userId}`;
+    try {
+      const { data: user } = await axios.get(fetchUserUrl);
+      this.setState({ user });
+    } catch (error) {
+      console.log(error.message);
     }
+  };
+
+  render() {
+    const { user } = this.state;
+    return (
+      <UserInfo user={user} />
+    );
+  }
 }
 
 export default UserInfoContainer;
