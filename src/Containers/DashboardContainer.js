@@ -58,7 +58,7 @@ class DashboardContainer extends React.PureComponent {
     } catch (e) {
       this.setState({ errorTransaction: e.message });
     }
-  }
+  };
 
   render() {
     const {
@@ -70,8 +70,7 @@ class DashboardContainer extends React.PureComponent {
         {!errorWallet ? <Wallet wallet={wallet} user={user} />
           : <WalletError message={errorWallet} />}
         <br />
-        {!errorTransaction
-          ? <TransactionList transactions={transactions} />
+        {!errorTransaction ? <TransactionList transactions={transactions} />
           : <TransactionError message={errorTransaction} />}
       </div>
     );
