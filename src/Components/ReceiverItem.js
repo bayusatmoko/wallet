@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 const ReceiverItem = (props) => {
   const { receiver, onClick } = props;
-
   return (
-    <div id="receiver-item" onClick={onClick}>
+    <div id="receiver-item" onClick={onClick} onKeyDown={onClick} role="button" tabIndex="0">
       <p id="name">{receiver.name}</p>
     </div>
   );

@@ -7,7 +7,7 @@ class TransactionForm extends React.PureComponent {
     super(props);
     this.state = {
       nominal: '',
-      description: ''
+      description: ' '
     };
   }
 
@@ -38,13 +38,19 @@ class TransactionForm extends React.PureComponent {
     }
   };
 
+  _handleKeyUp = (event) => {
+    if (event.key === 'Enter') {
+      this._handleSubmit();
+    }
+  };
+
   _renderNominalInput = () => {
     const { nominal } = this.state;
     return (
       <div className="row">
         <div className="input-field">
           <i className="material-icons prefix">attach_money</i>
-          <input className="input-field" type="number" id="nominal-input" name="nominal" onChange={this._handleChange} value={nominal} min="0" />
+          <input className="input-field" type="number" id="nominal-input" name="nominal" onChange={this._handleChange} onKeyUp={this._handleKeyUp} value={nominal} min="0" />
           <label htmlFor="nominal-input">Nominal</label>
         </div>
       </div>
@@ -57,7 +63,7 @@ class TransactionForm extends React.PureComponent {
       <div className="row">
         <div className="input-field">
           <i className="material-icons prefix">mode_edit</i>
-          <textarea className="materialize-textarea" id="description-input" name="description" onChange={this._handleChange} value={description} />
+          <input type="text" className="materialize-textarea" id="description-input" name="description" onChange={this._handleChange} onKeyUp={this._handleKeyUp} value={description} />
           <label htmlFor="description-input">Description</label>
         </div>
       </div>

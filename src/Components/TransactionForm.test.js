@@ -38,12 +38,22 @@ describe('TransactionForm', () => {
       expect(wrapper.find('#description-input').props().value).toBe(firstTransaction.description);
     });
 
-    it('should call handleSubmit when the submit button is clicked', () => {
+    it('should call handleSubmit when press enter on description input', () => {
       const expectedResult = firstTransaction;
 
       wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: firstTransaction.nominal } });
       wrapper.find('#description-input').simulate('change', { target: { name: 'description', value: firstTransaction.description } });
-      wrapper.find('#submit-button').simulate('click');
+      wrapper.find('#description-input').simulate('keyUp', { key: 'Enter' });
+
+      expect(handleSubmit).toHaveBeenCalledWith(expectedResult);
+    });
+
+    it('should call handleSubmit when press enter on nominal input', () => {
+      const expectedResult = firstTransaction;
+
+      wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: firstTransaction.nominal } });
+      wrapper.find('#description-input').simulate('change', { target: { name: 'description', value: firstTransaction.description } });
+      wrapper.find('#nominal-input').simulate('keyUp', { key: 'Enter' });
 
       expect(handleSubmit).toHaveBeenCalledWith(expectedResult);
     });
