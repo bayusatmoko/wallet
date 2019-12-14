@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import ReceiverList from '../Components/ReceiverList';
 import ReceiverSearch from '../Components/ReceiverSearch';
 import TransactionForm from '../Components/TransactionForm';
 import SuccessNotification from '../Components/SuccessNotification';
@@ -12,11 +11,11 @@ class TransferContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      receivers: [],
-      selectedReceiver: {},
+      receivers: [{ name: '', email: '' }],
       errorTransaction: '',
       errorSearch: '',
       isSubmitted: false,
+      isSearched: false,
       balance: 0
     };
   }
@@ -25,14 +24,12 @@ class TransferContainer extends Component {
     const { API_URL } = this.props;
     try {
       const { data } = await axios.get(`${API_URL}/users?email=${query}`);
-      this.setState({ receivers: [data], errorSearch: '' });
+      this.setState({
+        receivers: [data], errorSearch: '', isSearched: true, isSubmitted: false
+      });
     } catch (error) {
       this.setState({ errorSearch: error.message });
     }
-  };
-
-  _handleSelectReceiver = (receiver) => {
-    this.setState({ selectedReceiver: receiver });
   };
 
   _addTransaction = async (newTransaction) => {
@@ -48,16 +45,17 @@ class TransferContainer extends Component {
   };
 
   _handleSubmit = async ({ nominal, description }) => {
-    const { selectedReceiver } = this.state;
+    const { receivers } = this.state;
+    const [{ wallet }] = receivers;
     const walletId = 1;
     const newTransaction = {
       walletId,
-      receiverWalletId: selectedReceiver.wallet.id,
+      receiverWalletId: wallet.id,
       nominal,
       description,
       type: 'TRANSFER'
     };
-    this.setState({ isSubmitted: true });
+    this.setState({ isSubmitted: true, isSearched: false });
     await this._addTransaction(newTransaction);
   };
 
@@ -71,19 +69,15 @@ class TransferContainer extends Component {
 
   render() {
     const {
-      receivers, selectedReceiver, isSubmitted, errorSearch
+      receivers, isSubmitted, isSearched, errorSearch
     } = this.state;
-    const { name, email } = selectedReceiver;
+    const [{ name, email }] = receivers;
     return (
       <div>
-        <ReceiverSearch onSubmit={this._handleSearch} />
-        {errorSearch
-          ? <WalletError message={errorSearch} />
-          : <ReceiverList receivers={receivers} onClick={this._handleSelectReceiver} /> }
-        {name
-        && <TransactionForm onSubmit={this._handleSubmit} formTitle={`Transfer to ${name} (${email})`} />}
-        {isSubmitted
-        && this._renderNotification()}
+        {!isSearched && <ReceiverSearch onSubmit={this._handleSearch} /> }
+        {errorSearch && <WalletError message={errorSearch} /> }
+        {isSearched && <TransactionForm onSubmit={this._handleSubmit} formTitle={`Transfer to ${name} (${email})`} /> }
+        {isSubmitted && this._renderNotification()}
       </div>
     );
   }
