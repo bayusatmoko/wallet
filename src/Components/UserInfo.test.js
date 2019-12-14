@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Wallet from './Wallet';
 import UserInfo from './UserInfo';
 
 describe('UserInfo', () => {

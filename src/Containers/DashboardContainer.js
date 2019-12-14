@@ -16,8 +16,8 @@ class DashboardContainer extends React.PureComponent {
       errorWallet: '',
       walletId: 1,
       userId: 1,
-      user: { balance: 0 },
-      wallet: {}
+      user: {},
+      wallet: { balance: 0 }
     };
   }
 

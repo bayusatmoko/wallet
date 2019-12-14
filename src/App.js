@@ -14,59 +14,55 @@ import TransactionContainer from './Containers/TransactionContainer';
 import DepositContainer from './Containers/DepositContainer';
 import TransferContainer from './Containers/TransferContainer';
 
+
 class App extends React.PureComponent {
-  render() {
+  _renderTitle = () => (
+    <>
+      <nav className="background-header">
+        <a href="/#" data-target="nav-mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+        <NavLink to="/" className="brand-logo right">
+          <div className="logo-header">
+            <h5 className="logo-name">PHOENIX WALLET</h5>
+            <img className="image-phoenix" src={phoenix} alt="" />
+          </div>
+        </NavLink>
+      </nav>
+    </>
+  );
+
+  _renderSideNav = () => (
+    <ul id="nav-mobile" className="sidenav sidenav-fixed">
+      <UserInfoContainer />
+      <li><NavLink exact to="/" activeClassName="active">Dashboard</NavLink></li>
+      <li><NavLink exact to="/transaction" activeClassName="active">Transaction</NavLink></li>
+      <li><NavLink exact to="/deposit" activeClassName="active">Deposit</NavLink></li>
+      <li><NavLink exact to="/transfer" activeClassName="active">Transfer</NavLink></li>
+    </ul>
+  );
+
+  _renderContent = () => {
     const API_URL = 'http://localhost:3000';
+    return (
+      <Switch>
+        <Route exact path="/transaction"><TransactionContainer API_URL={API_URL} /></Route>
+        <Route exact path="/deposit"><DepositContainer API_URL={API_URL} /></Route>
+        <Route exact path="/"><DashboardContainer API_URL={API_URL} /></Route>
+        <Route exact path="/transfer"><TransferContainer API_URL={API_URL} /></Route>
+        <Route path="*"><NoMatch /></Route>
+      </Switch>
+    );
+  };
+
+  render() {
     return (
       <div className="App">
         <header>
-          <nav className="background-header">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href="#" data-target="nav-mobile" className="sidenav-trigger">
-              <i className="material-icons">menu</i>
-            </a>
-            <NavLink to="/" className="brand-logo right">
-              <div className="logo-header">
-                <h5 className="logo-name">PHOENIX WALLET</h5>
-                <img className="image-phoenix" src={phoenix} alt="" />
-              </div>
-            </NavLink>
-          </nav>
-          <ul id="nav-mobile" className="sidenav sidenav-fixed">
-            <UserInfoContainer />
-            <li>
-              <NavLink exact to="/" activeClassName="active">Dashboard</NavLink>
-            </li>
-            <li>
-              <NavLink exact to="/transaction" activeClassName="active">Transaction</NavLink>
-            </li>
-            <li>
-              <NavLink exact to="/deposit" activeClassName="active">Deposit</NavLink>
-            </li>
-            <li>
-              <NavLink exact to="/transfer" activeClassName="active">Transfer</NavLink>
-            </li>
-          </ul>
+          {this._renderTitle()}
+          {this._renderSideNav()}
         </header>
         <main>
           <div className="container">
-            <Switch>
-              <Route exact path="/transaction">
-                <TransactionContainer API_URL={API_URL} />
-              </Route>
-              <Route exact path="/deposit">
-                <DepositContainer API_URL={API_URL} />
-              </Route>
-              <Route exact path="/">
-                <DashboardContainer API_URL={API_URL} />
-              </Route>
-              <Route exact path="/transfer">
-                <TransferContainer API_URL={API_URL} />
-              </Route>
-              <Route path="*">
-                <NoMatch />
-              </Route>
-            </Switch>
+            {this._renderContent()}
           </div>
         </main>
       </div>
