@@ -8,7 +8,7 @@ class LastTransaction extends React.PureComponent {
       <tr>
         <th>Type</th>
         <th>Description</th>
-        <th>Amount</th>
+        <th>Nominal</th>
         <th className="date-head">Date</th>
         <th>Receiver/Sender</th>
       </tr>
