@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import React from 'react';
 import App from './App';
-import TransactionContainer from './Containers/TransactionContainer';
+import TransactionHistoryContainer from './Containers/TransactionHistoryContainer';
 import DashboardContainer from './Containers/DashboardContainer';
 
 describe('App', () => {
@@ -16,7 +16,7 @@ describe('App', () => {
 
       expect(wrapper.find(DashboardContainer)).toHaveLength(0);
       expect(wrapper.find('Route').props().path).toEqual('/transaction');
-      expect(wrapper.find(TransactionContainer)).toHaveLength(1);
+      expect(wrapper.find(TransactionHistoryContainer)).toHaveLength(1);
     });
 
     it('should render to Dashboard page when the path url is /', () => {
@@ -28,7 +28,7 @@ describe('App', () => {
 
       expect(wrapper.find(DashboardContainer)).toHaveLength(1);
       expect(wrapper.find('Route').props().path).toEqual('/');
-      expect(wrapper.find(TransactionContainer)).toHaveLength(0);
+      expect(wrapper.find(TransactionHistoryContainer)).toHaveLength(0);
     });
   });
 });
