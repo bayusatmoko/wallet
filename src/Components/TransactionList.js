@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TransactionItem from './TransactionItem';
-import LastTransaction from './LastTransaction';
 
 class TransactionList extends React.PureComponent {
   _renderTableHeader = () => (

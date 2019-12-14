@@ -20,4 +20,12 @@ class UserInfo extends React.PureComponent {
   }
 }
 
+UserInfo.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.string.isRequired
+  }).isRequired
+};
+
 export default UserInfo;

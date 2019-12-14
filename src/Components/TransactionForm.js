@@ -24,7 +24,7 @@ class TransactionForm extends React.PureComponent {
 
   _checkNominalInput = (nominal) => {
     if (nominal <= 1000 || nominal >= 100000000) {
-      alert('Amount must be between Rp1.000 and Rp100.000.000');
+      alert('Nominal must be between Rp1.000 and Rp100.000.000');
       return false;
     }
     return true;
@@ -45,7 +45,7 @@ class TransactionForm extends React.PureComponent {
         <div className="input-field">
           <i className="material-icons prefix">attach_money</i>
           <input className="input-field" type="number" id="nominal-input" name="nominal" onChange={this._handleChange} value={nominal} min="0" />
-          <label htmlFor="nominal-input">Amount</label>
+          <label htmlFor="nominal-input">Nominal</label>
         </div>
       </div>
     );
@@ -95,4 +95,5 @@ TransactionForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   formTitle: PropTypes.string.isRequired
 };
+
 export default TransactionForm;
