@@ -1,19 +1,14 @@
 import React from 'react';
 import './App.css';
+import { NavLink, Route, Switch } from 'react-router-dom';
 import 'materialize-css/dist/css/materialize.min.css';
-import {
-  Switch,
-  Route,
-  NavLink
-} from 'react-router-dom';
 import phoenix from './assets/images/phoenix.png';
 import NoMatch from './Components/NoMatch';
 import DashboardContainer from './Containers/DashboardContainer';
 import UserInfoContainer from './Containers/UserInfoContainer';
-import TransactionContainer from './Containers/TransactionContainer';
 import DepositContainer from './Containers/DepositContainer';
+import TransactionHistoryContainer from './Containers/TransactionHistoryContainer';
 import TransferContainer from './Containers/TransferContainer';
-
 
 class App extends React.PureComponent {
   _renderTitle = () => (
@@ -33,10 +28,10 @@ class App extends React.PureComponent {
   _renderSideNav = () => (
     <ul id="nav-mobile" className="sidenav sidenav-fixed">
       <UserInfoContainer />
-      <li><NavLink exact to="/" activeClassName="active">Dashboard</NavLink></li>
-      <li><NavLink exact to="/transaction" activeClassName="active">Transaction</NavLink></li>
-      <li><NavLink exact to="/deposit" activeClassName="active">Deposit</NavLink></li>
-      <li><NavLink exact to="/transfer" activeClassName="active">Transfer</NavLink></li>
+      <li><NavLink exact to="/" activeClassName="active white-text">Dashboard</NavLink></li>
+      <li><NavLink exact to="/transaction" activeClassName="active white-text">Transaction</NavLink></li>
+      <li><NavLink exact to="/deposit" activeClassName="active white-text">Deposit</NavLink></li>
+      <li><NavLink exact to="/transfer" activeClassName="active white-text">Transfer</NavLink></li>
     </ul>
   );
 
@@ -44,7 +39,7 @@ class App extends React.PureComponent {
     const API_URL = 'http://localhost:3000';
     return (
       <Switch>
-        <Route exact path="/transaction"><TransactionContainer API_URL={API_URL} /></Route>
+        <Route exact path="/transaction"><TransactionHistoryContainer API_URL={API_URL} /></Route>
         <Route exact path="/deposit"><DepositContainer API_URL={API_URL} /></Route>
         <Route exact path="/"><DashboardContainer API_URL={API_URL} /></Route>
         <Route exact path="/transfer"><TransferContainer API_URL={API_URL} /></Route>

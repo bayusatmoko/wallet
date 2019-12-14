@@ -21,7 +21,8 @@ describe('UserInfo', () => {
     it('should render user info', () => {
       expect(wrapper.find('.user-image')).toHaveLength(1);
       expect(wrapper.find('.user-name').text()).toBe(user.name);
-      expect(wrapper.find('.email').text()).toBe(user.email);
+      expect(wrapper.find('.user-phone').text()).toBe(user.phoneNumber);
+      expect(wrapper.find('.user-email').text()).toBe(user.email);
     });
   });
 });

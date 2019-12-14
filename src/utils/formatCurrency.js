@@ -1,7 +1,10 @@
-const formatCurrency = (amount, currency = '$') => {
-  let parseAmount = parseFloat(amount);
-  parseAmount = parseAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-  return `${currency} ${parseAmount}`;
-};
+import Intl from 'intl';
+import locale from 'intl/locale-data/jsonp/id-ID';
+
+const formatCurrency = (amount, currency = 'IDR') => new Intl.NumberFormat(locale, {
+  style: 'currency',
+  currency,
+  minimumFractionDigits: 0
+}).format(amount);
 
 export default formatCurrency;

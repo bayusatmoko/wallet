@@ -3,8 +3,8 @@ import formatDate from './formatDate';
 
 describe('Wallet', () => {
   describe('#formatCurrency', () => {
-    it('should return $ 100.00 when input is 1000', () => {
-      const expectedResult = '$ 100.00';
+    it('should return IDR100 when input is 100', () => {
+      const expectedResult = 'IDR100';
       const amount = 100;
 
       const actualResult = formatCurrency(amount);
@@ -12,8 +12,8 @@ describe('Wallet', () => {
       expect(actualResult).toEqual(expectedResult);
     });
 
-    it('should return $ 9,999,999.00 when input is 9999999', () => {
-      const expectedResult = '$ 9,999,999.00';
+    it('should return IDR9,999,999 when input is 9999999', () => {
+      const expectedResult = 'IDR9,999,999';
       const amount = 9999999;
 
       const actualResult = formatCurrency(amount);

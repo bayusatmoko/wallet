@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Wallet from '../Components/Wallet';
 import WalletError from '../Components/WalletError';
 import TransactionError from '../Components/TransactionError';
-import TransactionList from '../Components/TransactionList';
+import LastTransaction from '../Components/LastTransaction';
 
 class DashboardContainer extends React.PureComponent {
   constructor(props) {
@@ -14,7 +14,6 @@ class DashboardContainer extends React.PureComponent {
       transactions: [],
       errorTransaction: '',
       errorWallet: '',
-      walletId: 1,
       userId: 1,
       user: {},
       wallet: { balance: 0 }
@@ -22,16 +21,16 @@ class DashboardContainer extends React.PureComponent {
   }
 
   async componentDidMount() {
-    await this._fetchWallet();
     await this._fetchUser();
-    await this._fetchLastTransaction();
+    await this._fetchWallet();
   }
 
   _fetchWallet = async () => {
     const { userId } = this.state;
     const { API_URL } = this.props;
     try {
-      const { data: wallet } = await axios.get(`${API_URL}/users/${userId}/wallets/`);
+      const { data: wallet } = await axios.get(`${API_URL}/users/${userId}/wallets`);
+      await this._fetchLastTransaction(wallet.id);
       this.setState({ wallet, errorWallet: '' });
     } catch (e) {
       this.setState({ errorWallet: e.message });
@@ -49,11 +48,10 @@ class DashboardContainer extends React.PureComponent {
     }
   };
 
-  _fetchLastTransaction = async () => {
-    const { walletId } = this.state;
+  _fetchLastTransaction = async (walletId) => {
     const { API_URL } = this.props;
     try {
-      const response = await axios.get(`${API_URL}/wallets/${walletId}/transactions`);
+      const response = await axios.get(`${API_URL}/wallets/${walletId}/transactions?limit=5`);
       this.setState({ transactions: response.data, errorTransaction: '' });
     } catch (e) {
       this.setState({ errorTransaction: e.message });
@@ -70,7 +68,7 @@ class DashboardContainer extends React.PureComponent {
         {!errorWallet ? <Wallet wallet={wallet} user={user} />
           : <WalletError message={errorWallet} />}
         <br />
-        {!errorTransaction ? <TransactionList transactions={transactions} />
+        {!errorTransaction ? <LastTransaction transactions={transactions} walletId={wallet.id} />
           : <TransactionError message={errorTransaction} />}
       </div>
     );

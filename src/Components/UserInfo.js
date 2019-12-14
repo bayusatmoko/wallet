@@ -7,13 +7,20 @@ class UserInfo extends React.PureComponent {
     const { user } = this.props;
     return (
       <li>
-        <div className="user-view">
+        <div className="user-view user-info">
           <div className="background">
             <img className="background-nav" src={background} alt="user background" />
           </div>
-          <img className="circle user-image" src="assets/images/user-icon.png" alt="user icon" />
-          <span className="user-name">{user.name}</span>
-          <span className="email">{user.email}</span>
+          <i className="material-icons user-image large">account_circle</i>
+          <h5 className="user-name">{user.name}</h5>
+          <div>
+            <i className="material-icons">phone</i>
+            <span style={{ fontSize: 20, marginLeft: 20 }} className="user-phone">{user.phoneNumber}</span>
+          </div>
+          <div>
+            <i className="material-icons">email</i>
+            <span style={{ fontSize: 20, marginLeft: 10 }} className="user-email">{user.email}</span>
+          </div>
         </div>
       </li>
     );

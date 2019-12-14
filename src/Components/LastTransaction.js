@@ -1,35 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formatCurrency from '../utils/formatCurrency';
-import formatDate from '../utils/formatDate';
+import TransactionItem from './TransactionItem';
 
 class LastTransaction extends React.PureComponent {
-  _renderCard = (transaction, index) => (
-    <a className="carousel-item" href={`#card${index}`} key={transaction.id}>
-      <div className="left last-transaction__card">
-        <div className="card-title text-bold">
-          <h5>{formatCurrency(transaction.amount)}</h5>
-        </div>
-        <div className="divider" />
-        <div className="card-action">
-          <span>{transaction.description}</span>
-          <p>{formatDate(transaction.createdAt)}</p>
-        </div>
-      </div>
-    </a>
+  _renderTableHeader = () => (
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Nominal</th>
+        <th className="date-head">Date</th>
+        <th>Receiver/Sender</th>
+      </tr>
+    </thead>
   );
 
   render() {
-    const { transactions } = this.props;
+    const { transactions, walletId } = this.props;
     return (
-      <div className="row">
-        <h5 className="center">Last Transactions</h5>
-        <div className="carousel">
+      <table className="striped">
+        {this._renderTableHeader()}
+        <tbody className="transaction">
           {transactions.map((transaction, index) => (
-            this._renderCard(transaction, index)
+            <TransactionItem
+              transaction={transaction}
+              key={transaction.id}
+              index={index}
+              walletId={walletId}
+            />
           ))}
-        </div>
-      </div>
+        </tbody>
+      </table>
     );
   }
 }
@@ -37,14 +38,9 @@ class LastTransaction extends React.PureComponent {
 LastTransaction.defaultProps = {
   transactions: []
 };
-
 LastTransaction.propTypes = {
-  transactions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    amount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired
-  }))
-
+  transactions: PropTypes.arrayOf(PropTypes.object),
+  walletId: PropTypes.number.isRequired
 };
+
 export default LastTransaction;

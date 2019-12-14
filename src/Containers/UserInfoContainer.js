@@ -25,8 +25,8 @@ class UserInfoContainer extends React.PureComponent {
     try {
       const { data: user } = await axios.get(fetchUserUrl);
       this.setState({ user });
-    } catch (e) {
-      console.log(e.message);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
