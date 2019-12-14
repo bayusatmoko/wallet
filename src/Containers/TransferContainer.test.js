@@ -33,6 +33,8 @@ describe('TransferContainer', () => {
   };
   const API_URL = 'http://localhost:3000/';
   beforeEach(() => {
+    axios.get.mockResolvedValue({ data: [users[0]] });
+    axios.post.mockResolvedValue({ data: transaction });
     wrapper = shallow(<TransferContainer API_URL={API_URL} />);
   });
   afterEach(() => {
@@ -41,7 +43,6 @@ describe('TransferContainer', () => {
 
   describe('#render', () => {
     it('should display list of receivers based on query in ReceiverSearch', async () => {
-      axios.get.mockResolvedValue({ data: [users[0]] });
       const receiverSearch = wrapper.find('ReceiverSearch');
 
       receiverSearch.simulate('submit', 'fadele@btpn.com');
@@ -55,16 +56,26 @@ describe('TransferContainer', () => {
 
       receiverList.simulate('click', users[0]);
 
-      expect(wrapper.find('#receiver-selected').text()).toEqual(users[0].name);
+      expect(wrapper.find('TransactionForm').props().formTitle).toContain(users[0].name);
+      expect(wrapper.find('TransactionForm').props().formTitle).toContain(users[0].email);
+    });
+
+    it('should not render transaction form when not selected a receiver yet', () => {
+      expect(wrapper.find('TransactionForm')).toHaveLength(0);
+    });
+
+    it('should render transaction form when selected a receiver', () => {
+      wrapper.find('ReceiverList').simulate('click', users[1]);
+
+      wrapper.find('TransactionForm').simulate('submit', transaction);
+
+      expect(wrapper.find('TransactionForm')).toHaveLength(1);
     });
 
     it('should call POST with transaction data when button submit is clicked', async () => {
-      axios.post.mockResolvedValue({ data: transaction });
-      const transactionForm = wrapper.find('TransactionForm');
-      const receiverList = wrapper.find('ReceiverList');
+      wrapper.find('ReceiverList').simulate('click', users[1]);
 
-      receiverList.simulate('click', users[1]);
-      transactionForm.simulate('submit', transaction);
+      wrapper.find('TransactionForm').simulate('submit', transaction);
       await flushPromises();
 
       expect(axios.post).toHaveBeenCalledWith(`${API_URL}/transactions`, transaction);

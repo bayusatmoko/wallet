@@ -15,10 +15,10 @@ describe('ReceiverList', () => {
           id: 1
         }
       }, {
-        id: 1,
-        name: 'Fadel',
+        id: 2,
+        name: 'Sena',
         wallet: {
-          id: 1
+          id: 2
         }
       }
     ];

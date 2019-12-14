@@ -9,14 +9,14 @@ const ReceiverList = (props) => {
     onClick(item);
   };
 
-  const _renderReceiverItem = () => receivers.map((item) => (
-    <ReceiverItem key={item.id} receiver={item} onClick={_handleClick(item)} />
+  const _renderReceivers = () => receivers.map((receiver) => (
+    <ReceiverItem key={receiver.id} receiver={receiver} onClick={_handleClick(receiver)} />
   ));
 
   return (
     <table>
       <tbody>
-        {_renderReceiverItem()}
+        {_renderReceivers()}
       </tbody>
     </table>
   );

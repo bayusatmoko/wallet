@@ -10,7 +10,7 @@ class TransferContainer extends Component {
     super(props);
     this.state = {
       receivers: [],
-      selectedReceiver: { name: '' }
+      selectedReceiver: {}
     };
   }
 
@@ -48,19 +48,20 @@ class TransferContainer extends Component {
 
   render() {
     const { receivers, selectedReceiver } = this.state;
+    const { name, email } = selectedReceiver;
     return (
       <div>
         <ReceiverSearch onSubmit={this._handleSearch} />
         <ReceiverList receivers={receivers} onClick={this._handleSelectReceiver} />
-        <p id="receiver-selected">{selectedReceiver.name}</p>
-        <TransactionForm onSubmit={this._handleSubmit} />
+        {name
+        && <TransactionForm onSubmit={this._handleSubmit} formTitle={`Transfer to ${name} (${email})`} />}
       </div>
     );
   }
 }
 
 TransferContainer.propTypes = {
-
+  API_URL: PropTypes.string.isRequired
 };
 
 export default TransferContainer;
