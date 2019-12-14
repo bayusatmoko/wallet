@@ -18,9 +18,12 @@ class TransactionItem extends React.PureComponent {
 }
 TransactionItem.propTypes = {
   transaction: PropTypes.shape({
-    nominal: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
     description: PropTypes.string,
+    nominal: PropTypes.number.isRequired,
     createdAt: PropTypes.string.isRequired
   }).isRequired
 };
+
 export default TransactionItem;

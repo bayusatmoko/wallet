@@ -26,7 +26,6 @@
     ],
     "rules": {
         "react/jsx-filename-extension": "off",
-        "react/prop-types": "off",
         "no-underscore-dangle": "off",
         "comma-dangle": ["error", "never"],
         "import/no-extraneous-dependencies": "off",
