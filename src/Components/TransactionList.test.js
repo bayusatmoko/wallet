@@ -60,5 +60,14 @@ describe('TransactionList', () => {
       expect(mockedOnSort).toHaveBeenCalledTimes(1);
       expect(mockedOnSort).toHaveBeenCalledWith('date', 'asc');
     });
+
+    it('should call the onSort when the table header of Nominal is clicked', async () => {
+      wrapper.find('#nominal-header').simulate('click', 'nominal');
+      await flushPromises();
+
+      expect(mockedOnSort).toHaveBeenCalled();
+      expect(mockedOnSort).toHaveBeenCalledTimes(1);
+      expect(mockedOnSort).toHaveBeenCalledWith('nominal', 'desc');
+    });
   });
 });
