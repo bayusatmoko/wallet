@@ -24,8 +24,8 @@ class TransferContainer extends Component {
   _handleSearch = async (query) => {
     const { API_URL } = this.props;
     try {
-      const { data } = await axios.get(`${API_URL}/users?receiver=${query}`);
-      this.setState({ receivers: data });
+      const { data } = await axios.get(`${API_URL}/users?email=${query}`);
+      this.setState({ receivers: [data], errorSearch: '' });
     } catch (error) {
       this.setState({ errorSearch: error.message });
     }
