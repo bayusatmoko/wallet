@@ -21,5 +21,14 @@ describe('ReceiverSearch', () => {
 
       expect(mockedOnSubmit).toHaveBeenCalledWith(query);
     });
+
+    it('should call onKeyPress when enter is pressed', () => {
+      const searchInput = wrapper.find('#search-input');
+
+      searchInput.simulate('change', { target: { value: query } });
+      searchInput.simulate('keyUp', { key: 'Enter' });
+
+      expect(mockedOnSubmit).toHaveBeenCalledWith(query);
+    });
   });
 });

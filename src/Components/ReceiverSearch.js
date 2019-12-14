@@ -20,12 +20,18 @@ class ReceiverSearch extends Component {
     onSubmit(query);
   };
 
+  _handleKeyUp = (event) => {
+    if (event.key === 'Enter') {
+      this._handleSubmit();
+    }
+  };
+
   _renderSearchInput = () => {
     const { query } = this.state;
     return (
       <div className="input-field">
         <i className="material-icons prefix">search</i>
-        <input className="input-field" type="text" id="search-input" name="search-input" onChange={this._handleChange} value={query} />
+        <input className="input-field" type="text" id="search-input" name="search-input" onChange={this._handleChange} value={query} onKeyUp={this._handleKeyUp} />
         <label htmlFor="search-input">Email</label>
       </div>
     );
