@@ -7,6 +7,7 @@ import TransactionContainer from './Containers/TransactionContainer';
 import DashboardContainer from './Containers/DashboardContainer';
 import NoMatch from './Components/NoMatch';
 import UserInfoContainer from './Containers/UserInfoContainer';
+import TransactionHistoryContainer from "./Containers/TransactionHistoryContainer";
 
 class App extends React.PureComponent {
   render() {
@@ -40,7 +41,7 @@ class App extends React.PureComponent {
           <div className="container">
             <Switch>
               <Route exact path="/transaction">
-                <TransactionContainer API_URL={API_URL} />
+                <TransactionHistoryContainer API_URL={API_URL} />
               </Route>
               <Route exact path="/">
                 <DashboardContainer API_URL={API_URL} />
