@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import 'materialize-css/dist/css/materialize.min.css';
 import TransactionList from '../Components/TransactionList';
 import TransactionError from '../Components/TransactionError';
+import config from '../config';
+import TransactionFilter from '../Components/TransactionFilter';
 
 class TransactionHistoryContainer extends React.PureComponent {
   constructor(props) {
@@ -12,7 +13,10 @@ class TransactionHistoryContainer extends React.PureComponent {
       transactions: [],
       errorTransaction: '',
       sortColumn: 'date',
-      orderBy: 'desc'
+      orderBy: 'desc',
+      walletId: 1,
+      searchDescription: '',
+      searchAmount: ''
     };
   }
 
@@ -22,9 +26,8 @@ class TransactionHistoryContainer extends React.PureComponent {
 
     _fetchAllTransactions = async () => {
       const walletId = 1;
-      const { API_URL } = this.props;
       try {
-        const response = await axios.get(`${API_URL}/wallets/${walletId}/transactions`);
+        const response = await axios.get(`${config.API_URL}/wallets/${walletId}/transactions`);
         this.setState({ transactions: response.data, errorTransaction: '' });
       } catch (e) {
         this.setState({ errorTransaction: e.message });
@@ -67,22 +70,59 @@ class TransactionHistoryContainer extends React.PureComponent {
       return sortedTransaction;
     };
 
+    _displayTransaction = (transactions) => {
+      const sortedDescription = this._sortTransactions(transactions);
+      const filteredDescription = this._filterByDescription(sortedDescription);
+      return this._filterByAmount(filteredDescription);
+    };
 
-    render() {
-      const { errorTransaction } = this.state;
-      const sortedTransaction = this._sortTransactions();
-      return (
+    _handleDescription = (newDescription) => {
+      this.setState({
+        searchDescription: newDescription
+      });
+    };
+
+  _handleAmount = (newAmount) => {
+    this.setState({
+      searchAmount: newAmount
+    });
+  };
+
+  _filterByAmount(list) {
+    const { searchAmount } = this.state;
+    return list
+      .filter((transaction) => transaction.nominal.toString().includes(searchAmount));
+  }
+
+  _filterByDescription(list) {
+    const { searchDescription } = this.state;
+    return list
+      .filter((transaction) => transaction.description.includes(searchDescription));
+  }
+
+
+  render() {
+    const { errorTransaction, transactions, walletId } = this.state;
+    return (
+      <div>
+        <TransactionFilter
+          handleDescription={this._handleDescription}
+          handleAmount={this._handleAmount}
+        />
         <div className="all-transaction">
           {!errorTransaction
-            ? <TransactionList transactions={sortedTransaction} onSort={this._handleSort} />
+            ? (
+              <TransactionList
+                transactions={this._displayTransaction(transactions)}
+                walletId={walletId}
+                onSort={this._handleSort}
+              />
+            )
             : <TransactionError message={errorTransaction} />}
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
-
-TransactionHistoryContainer.propTypes = {
-  API_URL: PropTypes.string.isRequired
-};
 
 export default TransactionHistoryContainer;

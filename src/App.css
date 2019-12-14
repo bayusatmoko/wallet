@@ -67,7 +67,6 @@
 }
 
 .all-transaction{
-    margin-top: 60px;
     overflow: scroll;
     height: 600px;
     width: 1000px;
@@ -130,7 +129,12 @@ table tbody tr td{
 }
 
 main{
-    padding-left: 13%;
+    padding-left: 17%;
+}
+
+.filter-section{
+    display: flex;
+    justify-content: flex-start;
 }
 
 
