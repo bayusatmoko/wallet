@@ -70,7 +70,7 @@ describe('TransactionItem', () => {
       expect(wrapper.find('td').at(1).text()).toContain(transaction.description);
       expect(wrapper.find('td').at(2).text()).toContain(expectedAmount);
       expect(wrapper.find('td').at(3).text()).toContain(expectedDate);
-      expect(wrapper.find('td').at(4).text()).toContain(transaction.receiver.user.name);
+      expect(wrapper.find('td').at(4).text()).toContain('');
     });
 
     it('should text color of amount is green when the type is DEPOSIT', () => {
