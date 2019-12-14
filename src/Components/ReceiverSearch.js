@@ -26,7 +26,7 @@ class ReceiverSearch extends Component {
       <div className="input-field">
         <i className="material-icons prefix">search</i>
         <input className="input-field" type="text" id="search-input" name="search-input" onChange={this._handleChange} value={query} />
-        <label htmlFor="search-input">Search by email or phone number</label>
+        <label htmlFor="search-input">Receiver email or phone number</label>
       </div>
     );
   };

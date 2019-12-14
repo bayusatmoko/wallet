@@ -6,6 +6,7 @@ import ReceiverSearch from '../Components/ReceiverSearch';
 import TransactionForm from '../Components/TransactionForm';
 import SuccessNotification from '../Components/SuccessNotification';
 import FailedNotification from '../Components/FailedNotification';
+import WalletError from '../Components/WalletError';
 
 class TransferContainer extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class TransferContainer extends Component {
     this.state = {
       receivers: [],
       selectedReceiver: {},
-      error: '',
+      errorTransaction: '',
+      errorSearch: '',
       isSubmitted: false,
       balance: 0
     };
@@ -21,8 +23,12 @@ class TransferContainer extends Component {
 
   _handleSearch = async (query) => {
     const { API_URL } = this.props;
-    const { data } = await axios.get(`${API_URL}/users?q=${query}`);
-    this.setState({ receivers: data });
+    try {
+      const { data } = await axios.get(`${API_URL}/users?receiver=${query}`);
+      this.setState({ receivers: data });
+    } catch (error) {
+      this.setState({ errorSearch: error.message });
+    }
   };
 
   _handleSelectReceiver = (receiver) => {
@@ -35,9 +41,9 @@ class TransferContainer extends Component {
     try {
       await axios.post(`${API_URL}/transactions`, newTransaction);
       const { data: wallet } = await axios.get(`${API_URL}/users/${USER_ID}/wallets`);
-      this.setState({ balance: wallet.balance, error: '' });
+      this.setState({ balance: wallet.balance, errorTransaction: '' });
     } catch (error) {
-      this.setState({ error: error.message });
+      this.setState({ errorTransaction: error.message });
     }
   };
 
@@ -56,23 +62,28 @@ class TransferContainer extends Component {
   };
 
   _renderNotification = () => {
-    const { error, balance } = this.state;
-    if (error) {
-      return (<FailedNotification message={error} />);
+    const { errorTransaction, balance } = this.state;
+    if (errorTransaction) {
+      return (<FailedNotification message={errorTransaction} />);
     }
     return (<SuccessNotification balance={balance} />);
   };
 
   render() {
-    const { receivers, selectedReceiver, isSubmitted } = this.state;
+    const {
+      receivers, selectedReceiver, isSubmitted, errorSearch
+    } = this.state;
     const { name, email } = selectedReceiver;
     return (
       <div>
         <ReceiverSearch onSubmit={this._handleSearch} />
-        <ReceiverList receivers={receivers} onClick={this._handleSelectReceiver} />
+        {errorSearch
+          ? <WalletError message={errorSearch} />
+          : <ReceiverList receivers={receivers} onClick={this._handleSelectReceiver} /> }
         {name
         && <TransactionForm onSubmit={this._handleSubmit} formTitle={`Transfer to ${name} (${email})`} />}
-        {isSubmitted && this._renderNotification()}
+        {isSubmitted
+        && this._renderNotification()}
       </div>
     );
   }

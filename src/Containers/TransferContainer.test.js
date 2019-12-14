@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import axios from 'axios';
 import { when } from 'jest-when';
-
 import TransferContainer from './TransferContainer';
 
 jest.mock('axios');
@@ -36,7 +35,7 @@ describe('TransferContainer', () => {
   const API_URL = 'http://localhost:3000';
   beforeEach(() => {
     when(axios.get)
-      .calledWith('http://localhost:3000/users?q=fadele@btpn.com')
+      .calledWith('http://localhost:3000/users?receiver=fadele@btpn.com')
       .mockResolvedValue({ data: [users[0]] })
       .calledWith('http://localhost:3000/users/1/wallets')
       .mockResolvedValue({ data: users[0].wallet });
@@ -49,18 +48,14 @@ describe('TransferContainer', () => {
 
   describe('#render', () => {
     it('should display list of receivers based on query in ReceiverSearch', async () => {
-      const receiverSearch = wrapper.find('ReceiverSearch');
-
-      receiverSearch.simulate('submit', 'fadele@btpn.com');
+      wrapper.find('ReceiverSearch').simulate('submit', 'fadele@btpn.com');
       await flushPromises();
 
       expect(wrapper.find('ReceiverList').props().receivers).toEqual([users[0]]);
     });
 
     it('should display receiver name and email when item in ReceiverList is clicked', () => {
-      const receiverList = wrapper.find('ReceiverList');
-
-      receiverList.simulate('click', users[0]);
+      wrapper.find('ReceiverList').simulate('click', users[0]);
 
       expect(wrapper.find('TransactionForm').props().formTitle).toContain(users[0].name);
       expect(wrapper.find('TransactionForm').props().formTitle).toContain(users[0].email);
@@ -119,6 +114,19 @@ describe('TransferContainer', () => {
       await flushPromises();
 
       expect(wrapper.find('SuccessNotification').props().balance).toBe(users[0].wallet.balance);
+    });
+
+    it('should render walletError when receiver is not found', async () => {
+      when(axios.get)
+        .calledWith('http://localhost:3000/users?receiver=fadele@btpn.com')
+        .mockRejectedValue(new Error('Receiver not found!'));
+      wrapper = shallow(<TransferContainer API_URL={API_URL} />);
+
+      wrapper.find('ReceiverSearch').simulate('submit', 'fadele@btpn.com');
+      await flushPromises();
+
+      expect(wrapper.find('ReceiverList').length).toBe(0);
+      expect(wrapper.find('WalletError').length).toBe(1);
     });
   });
 });
