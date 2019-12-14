@@ -18,9 +18,10 @@ class DepositContainer extends React.PureComponent {
 
   _addTransaction = async (newTransaction) => {
     const { API_URL } = this.props;
+    const USER_ID = 1;
     try {
       await axios.post(`${API_URL}/transactions`, newTransaction);
-      const { data: wallet } = await axios.get(`${API_URL}/users/${1}/wallets/`);
+      const { data: wallet } = await axios.get(`${API_URL}/users/${USER_ID}/wallets/`);
       this.setState({ balance: wallet.balance, error: '' });
     } catch (error) {
       this.setState({ error: error.message });

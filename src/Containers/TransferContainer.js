@@ -4,13 +4,18 @@ import axios from 'axios';
 import ReceiverList from '../Components/ReceiverList';
 import ReceiverSearch from '../Components/ReceiverSearch';
 import TransactionForm from '../Components/TransactionForm';
+import SuccessNotification from '../Components/SuccessNotification';
+import FailedNotification from '../Components/FailedNotification';
 
 class TransferContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       receivers: [],
-      selectedReceiver: {}
+      selectedReceiver: {},
+      error: '',
+      isSubmitted: false,
+      balance: 0
     };
   }
 
@@ -25,11 +30,14 @@ class TransferContainer extends Component {
   };
 
   _addTransaction = async (newTransaction) => {
+    const USER_ID = 1;
     const { API_URL } = this.props;
     try {
       await axios.post(`${API_URL}/transactions`, newTransaction);
+      const { data: wallet } = await axios.get(`${API_URL}/users/${USER_ID}/wallets`);
+      this.setState({ balance: wallet.balance, error: '' });
     } catch (error) {
-      console.log(error);
+      this.setState({ error: error.message });
     }
   };
 
@@ -43,11 +51,20 @@ class TransferContainer extends Component {
       description,
       type: 'TRANSFER'
     };
+    this.setState({ isSubmitted: true });
     await this._addTransaction(newTransaction);
   };
 
+  _renderNotification = () => {
+    const { error, balance } = this.state;
+    if (error) {
+      return (<FailedNotification message={error} />);
+    }
+    return (<SuccessNotification balance={balance} />);
+  };
+
   render() {
-    const { receivers, selectedReceiver } = this.state;
+    const { receivers, selectedReceiver, isSubmitted } = this.state;
     const { name, email } = selectedReceiver;
     return (
       <div>
@@ -55,6 +72,7 @@ class TransferContainer extends Component {
         <ReceiverList receivers={receivers} onClick={this._handleSelectReceiver} />
         {name
         && <TransactionForm onSubmit={this._handleSubmit} formTitle={`Transfer to ${name} (${email})`} />}
+        {isSubmitted && this._renderNotification()}
       </div>
     );
   }

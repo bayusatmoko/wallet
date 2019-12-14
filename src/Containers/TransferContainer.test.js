@@ -1,6 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import axios from 'axios';
+import { when } from 'jest-when';
+
 import TransferContainer from './TransferContainer';
 
 jest.mock('axios');
@@ -31,9 +33,13 @@ describe('TransferContainer', () => {
     nominal: 1250,
     description: 'Payslip 2019-11-28'
   };
-  const API_URL = 'http://localhost:3000/';
+  const API_URL = 'http://localhost:3000';
   beforeEach(() => {
-    axios.get.mockResolvedValue({ data: [users[0]] });
+    when(axios.get)
+      .calledWith('http://localhost:3000/users?q=fadele@btpn.com')
+      .mockResolvedValue({ data: [users[0]] })
+      .calledWith('http://localhost:3000/users/1/wallets')
+      .mockResolvedValue({ data: users[0].wallet });
     axios.post.mockResolvedValue({ data: transaction });
     wrapper = shallow(<TransferContainer API_URL={API_URL} />);
   });
@@ -79,6 +85,40 @@ describe('TransferContainer', () => {
       await flushPromises();
 
       expect(axios.post).toHaveBeenCalledWith(`${API_URL}/transactions`, transaction);
+    });
+
+    it('should not render any notification when not submitted yet', () => {
+      expect(wrapper.find('FailedNotification').length).toBe(0);
+      expect(wrapper.find('SuccessNotification').length).toBe(0);
+    });
+
+    it('should not render success notification but render failed notification when failed to transfer', async () => {
+      axios.post.mockRejectedValue(Error('Network Error'));
+      wrapper = shallow(<TransferContainer API_URL={API_URL} />);
+
+      wrapper.find('ReceiverList').simulate('click', users[1]);
+      wrapper.find('TransactionForm').simulate('submit', transaction);
+      await flushPromises();
+
+      expect(wrapper.find('SuccessNotification').length).toBe(0);
+      expect(wrapper.find('FailedNotification').length).toBe(1);
+    });
+
+    it('should render success notification when the transaction is successful', async () => {
+      wrapper.find('ReceiverList').simulate('click', users[1]);
+      wrapper.find('TransactionForm').simulate('submit', transaction);
+      await flushPromises();
+
+      expect(wrapper.find('SuccessNotification').length).toBe(1);
+      expect(wrapper.find('FailedNotification').length).toBe(0);
+    });
+
+    it('should render success notification with the balance when the transaction is successful', async () => {
+      wrapper.find('ReceiverList').simulate('click', users[0]);
+      wrapper.find('TransactionForm').simulate('submit', transaction);
+      await flushPromises();
+
+      expect(wrapper.find('SuccessNotification').props().balance).toBe(users[0].wallet.balance);
     });
   });
 });
