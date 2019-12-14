@@ -124,6 +124,11 @@ table tbody tr td{
     padding-left: 30px;
 }
 
+.clickableHeader:hover {
+    background-color: #b78cfc;
+    cursor: pointer;
+}
+
 main{
     padding-left: 13%;
 }

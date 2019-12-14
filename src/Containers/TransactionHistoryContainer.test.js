@@ -18,7 +18,7 @@ describe('TransactionHistoryContainer', () => {
       id: 1,
       walletId: 1,
       type: 'deposit',
-      amount: 7700000,
+      nominal: 7700000,
       description: 'Payslip 2019-11-28',
       createdAt: '2019-11-28T13:26:15.063Z',
       updatedAt: '2019-11-28T13:26:15.063Z'
@@ -27,7 +27,7 @@ describe('TransactionHistoryContainer', () => {
       id: 2,
       walletId: 1,
       type: 'withdraw',
-      amount: 30,
+      nominal: 30,
       description: 'Buy Cheeseburger for lunch',
       createdAt: '2019-11-27T13:26:15.063Z',
       updatedAt: '2019-11-27T13:26:15.063Z'
@@ -36,7 +36,7 @@ describe('TransactionHistoryContainer', () => {
       id: 3,
       walletId: 1,
       type: 'withdraw',
-      amount: 100,
+      nominal: 100,
       description: 'Dinner at Italian Steak House',
       createdAt: '2019-11-26T13:26:15.063Z',
       updatedAt: '2019-11-26T13:26:15.063Z'
@@ -81,8 +81,30 @@ describe('TransactionHistoryContainer', () => {
     });
 
     it('should render transactions by descending date', async () => {
-      const expectedResult = [thirdTransaction, secondTransaction, firstTransaction];
+      const expectedResult = [firstTransaction, secondTransaction, thirdTransaction];
       const sortColumn = 'date';
+      const orderBy = 'desc';
+
+      wrapper.find('TransactionList').simulate('sort', sortColumn, orderBy);
+      await flushPromises();
+
+      expect(wrapper.find('TransactionList').props().transactions).toEqual(expectedResult);
+    });
+
+    it('should render transactions by descending nominal', async () => {
+      const expectedResult = [firstTransaction, thirdTransaction, secondTransaction];
+      const sortColumn = 'nominal';
+      const orderBy = 'desc';
+
+      wrapper.find('TransactionList').simulate('sort', sortColumn, orderBy);
+      await flushPromises();
+
+      expect(wrapper.find('TransactionList').props().transactions).toEqual(expectedResult);
+    });
+
+    it('should render transactions by ascending nominal', async () => {
+      const expectedResult = [secondTransaction, thirdTransaction, firstTransaction];
+      const sortColumn = 'nominal';
       const orderBy = 'asc';
 
       wrapper.find('TransactionList').simulate('sort', sortColumn, orderBy);
