@@ -52,7 +52,7 @@ class DepositContainer extends React.PureComponent {
     const { isSubmitted } = this.state;
     return (
       <div className="row">
-        <TransactionForm onSubmit={this._handleSubmit} />
+        <TransactionForm onSubmit={this._handleSubmit} formTitle="Deposit" />
         {isSubmitted && this._renderNotification()}
       </div>
     );

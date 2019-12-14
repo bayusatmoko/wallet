@@ -68,5 +68,9 @@ describe('DepositContainer', () => {
 
       expect(wrapper.find('SuccessNotification').props().balance).toBe(wallet.balance);
     });
+
+    it('should have Deposit as TransactionForm props', () => {
+      expect(wrapper.find('TransactionForm').props().formTitle).toBe('Deposit');
+    });
   });
 });

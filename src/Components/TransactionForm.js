@@ -75,10 +75,12 @@ class TransactionForm extends React.PureComponent {
   );
 
   render() {
+    const { formTitle } = this.props;
     return (
       <div className="row transaction__form">
         <div className="col card l6 offset-l3 s12">
           <div className="card-content">
+            <span className="card-title">{formTitle}</span>
             {this._renderAmountInput()}
             {this._renderDescriptionInput()}
             {this._renderSubmitButton()}
@@ -90,6 +92,7 @@ class TransactionForm extends React.PureComponent {
 }
 
 TransactionForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  formTitle: PropTypes.string.isRequired
 };
 export default TransactionForm;
