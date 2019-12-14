@@ -23,8 +23,8 @@ class TransactionForm extends React.PureComponent {
   };
 
   _checkNominalInput = (nominal) => {
-    if (nominal <= 10000 || nominal >= 100000000) {
-      alert('Amount must be between Rp10.000 and Rp100.000.000');
+    if (nominal <= 1000 || nominal >= 100000000) {
+      alert('Amount must be between Rp1.000 and Rp100.000.000');
       return false;
     }
     return true;

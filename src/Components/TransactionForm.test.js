@@ -48,15 +48,15 @@ describe('TransactionForm', () => {
       expect(handleSubmit).toHaveBeenCalledWith(expectedResult);
     });
 
-    it('should not call onSubmit when the nominal input is under Rp10.000', () => {
-      wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: 7500 } });
+    it('should not call onSubmit when the nominal input is under Rp1.000', () => {
+      wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: 750 } });
       wrapper.find('#description-input').simulate('change', { target: { name: 'description', value: firstTransaction.description } });
       wrapper.find('#submit-button').simulate('click');
 
       expect(handleSubmit).not.toHaveBeenCalled();
     });
 
-    it('should not call onSubmit when the nominal input is above Rp10.000', () => {
+    it('should not call onSubmit when the nominal input is above Rp100.000.000', () => {
       wrapper.find('#nominal-input').simulate('change', { target: { name: 'nominal', value: 120000000 } });
       wrapper.find('#description-input').simulate('change', { target: { name: 'description', value: firstTransaction.description } });
       wrapper.find('#submit-button').simulate('click');
