@@ -18,7 +18,7 @@ class TransactionList extends React.PureComponent {
   render() {
     const { transactions, walletId } = this.props;
     return (
-      <table>
+      <table className="striped">
         {this._renderTableHeader()}
         <tbody className="transaction">
           {transactions.map((transaction, index) => (

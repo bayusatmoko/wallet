@@ -11,7 +11,8 @@
 }
 
 .background-header{
-    background-color: #B127FC;
+    /*background-color: rgba(0,212,255,1);*/
+    background: linear-gradient(90deg, #B127FC 0%, #c05efc 90%);
     height: 100px;
     padding: 10px;
 }
@@ -72,34 +73,34 @@
 }
 
 table thead tr th:nth-child(1){
-    background-color: #B127FC;
+    background-color: #8127fc;
     border-top-left-radius: 20px;
 }
 
 table thead tr th:nth-child(1){
-    background-color: #B127FC;
+    background-color: #8127fc;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
 }
 
 table thead tr th:nth-child(2){
-    background-color: #B127FC;
+    background-color: #8127fc;
     border-radius: 0;
 }
 
 table thead tr th:nth-child(3){
-    background-color: #B127FC;
+    background-color: #8127fc;
     border-radius: 0;
 }
 
 table thead tr th:nth-child(4){
-    background-color: #B127FC;
+    background-color: #8127fc;
     border-radius: 0;
 }
 
 table thead tr th:nth-child(5){
-    background-color: #B127FC;
+    background-color: #8127fc;
     border-radius: 0 20px 0 0;
     padding-right: 40px;
 }

@@ -1,9 +1,9 @@
 li a.active{
-  background-color: #b3e5fc;
+  background-color: #8127fc;
 }
 
 li a:hover{
-  background-color: rgba(0, 0, 0, 0.3) !important;
+  background-color: #b78cfc !important;
 }
 
 .dashboard__wallet, .transaction__form{

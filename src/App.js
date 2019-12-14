@@ -30,10 +30,10 @@ class App extends React.PureComponent {
           <ul id="nav-mobile" className="sidenav sidenav-fixed">
             <UserInfoContainer />
             <li>
-              <NavLink exact to="/" activeClassName="active">Dashboard</NavLink>
+              <NavLink exact to="/" activeClassName="active white-text">Dashboard</NavLink>
             </li>
             <li>
-              <NavLink exact to="/transaction" activeClassName="active">Transaction</NavLink>
+              <NavLink exact to="/transaction" activeClassName="active white-text">Transaction</NavLink>
             </li>
           </ul>
         </header>
